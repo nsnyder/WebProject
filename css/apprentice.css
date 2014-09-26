@@ -5,7 +5,7 @@ table, th, td, tr{
 }
 table{
 	display: inline-block;
-	border: thick solid black;
+	border: thick solid;
 	border-color: #B1DDF3;
 	border-radius: .5em;
 	margin: 1em;
