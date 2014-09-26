@@ -1,17 +1,28 @@
 /*toolbox styling*/
 table, th, td, tr{
-	border: thin solid black;
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: normal;
 }
 table{
+	border: thin solid black;
+	margin: 1em;
 	float: right;
+}
+th{
+	padding: .2em .2em .2em .2em;
+	border: thin solid black;
+	background: #5CB8E6;
+	color: #FFFFFF;
+	font-weight: bold;
 }
 td{
 	padding: .1em .1em .1em .1em;
-	
-	width: 5vw;
-	height: 5vw;
+	background: -webkit-linear-gradient(#F0F0F0, #B8B8B8); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#F0F0F0, #B8B8B8); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#F0F0F0, #B8B8B8); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#F0F0F0, #B8B8B8); /* Standard syntax */
+	width: 3vw;
+	height: 3vw;
 }
 img{
 	width: 100%;
