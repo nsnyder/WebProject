@@ -1,8 +1,9 @@
-/*toolbox styling*/
+/*General table styling*/
 table, th, td, tr{
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: normal;
 }
+/*toolbox styling*/
 #Toolbox{
 	display: inline-block;
 	border: thick solid;
@@ -24,9 +25,30 @@ td.tools{
 	width: 3vw;
 	height: 3vw;
 }
-img{
+img.tools{
 	width: 100%;
 	height: 100%;
+}
+/*Color Pallet styling*/
+#ColorPallet{
+	display: inline-block;
+	border: thick solid;
+	border-color: #CCFF99;
+	border-radius: .5em;
+	margin: 1em;
+}
+th.pallet{
+	padding: .2em .2em .2em .2em;
+	border-radius: .3em;
+	background: #B8E65C;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+td.pallet{
+	background: #EFEFEF;
+	border-radius: .3em;
+	width: 1.5vw;
+	height: 1.5vw;
 }
 /*Canvas and Frame styling*/
 #Frame{
