@@ -4,12 +4,11 @@ table, th, td, tr{
 	font-weight: normal;
 }
 table{
-	display: inline;
+	display: inline-block;
 	border: thick solid black;
 	border-color: #B1DDF3;
 	border-radius: .5em;
 	margin: 1em;
-	float: right;
 }
 th{
 	padding: .2em .2em .2em .2em;
@@ -31,6 +30,7 @@ img{
 }
 /*Canvas and Frame styling*/
 #Frame{
+	display: inline-block;
 	height: 20em;
 	width: 30em;
 	margin: 1em;
