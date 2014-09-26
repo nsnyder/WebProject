@@ -5,8 +5,39 @@
    <title>Change this</title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/login.css">
+   <script>
+		window.onload = function() {
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.canvas.width  = window.innerWidth+20;
+			ctx.canvas.height = window.innerHeight;
+			var centerX = 5;
+			var centerY = 5;
+			while(centerY < ctx.canvas.height) {
+				while(centerX < ctx.canvas.width) {
+					ctx.beginPath();
+					var colors = ["#9ce","#f77","#6ea","#99c","#ff9"];
+					
+					ctx.fillStyle = colors[getRandomInt(0,colors.length)];
+					
+					
+					
+					ctx.arc(centerX,centerY,5,0,2*Math.PI);
+					// ctx.fill();
+					centerX+=12;
+				}
+				centerY+=12;
+				centerX=5;
+			}
+		}
+		function getRandomInt(min, max) {
+		  return Math.floor(Math.random() * (max - min)) + min;
+		}
+
+	</script>
 </head>
 <body>
-
+<canvas id="myCanvas" width="200" height="100"></canvas>
+<p>Testing 123</p>
 </body>
 </html>
