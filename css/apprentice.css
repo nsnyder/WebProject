@@ -132,9 +132,3 @@ li.horizontal{
 	padding: 0;
 	display: inline;
 }
-#Undo{
-	background-image: url("images/undo_icon_16.png");
-}
-#Redo{
-	background-image: url("images/undo_icon_16.png");
-}
