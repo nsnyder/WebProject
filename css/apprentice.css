@@ -93,15 +93,15 @@ td.pallet{
 	padding: 0 0 0 0;
 	border-style: solid;
 	border-color: #9C7B59;
-	border-width: 3em;
+	border-width: 50px;
 }
 
 /*Action bar list styling*/
 #ActionBar{
 	margin: 0;
-	width: initial;
-	padding: .5em;
-	background-color: #D685FF;
+	padding: 0;
+	width: 580px;
+	background-color: #FFFFFF;
 	border-radius: .5em;
 }
 ul.action{
@@ -113,17 +113,17 @@ ul.action{
 	background-color: #EBC2FF;
 }
 #Share{
-	margin: 1em;
+	margin-right: 2em;
 	width: 12em;
 	display: inline;
 }
 #UndoRedo{
-	margin: 1em;
+	margin-right: 2em;
 	width: 10em;
 	display: inline;
 }
 #File{
-	margin: 1em;
+	margin-right: 2em;
 	width: 20em;
 	display: inline;
 }
