@@ -96,19 +96,45 @@ td.pallet{
 	border-width: 3em;
 }
 
-/*Social Media Share list styling*/
-#SocialMedia{
+/*Action bar list styling*/
+#ActionBar{
 	margin: 0;
-	width: 480px;
-	padding: .3em;
+	width: initial;
+	padding: .5em;
+	background-color: #D685FF;
+	border-radius: .5em;
+}
+ul.action{
 	list-style-type: none;
 	font-size: .8em;
 	color: #FFFFFF;
-	background-color: #C6C6C6;
+	padding: .5em;
 	border-radius: .5em;
+	background-color: #EBC2FF;
+}
+#Share{
+	margin: 1em;
+	width: 12em;
+	display: inline;
+}
+#UndoRedo{
+	margin: 1em;
+	width: 10em;
+	display: inline;
+}
+#File{
+	margin: 1em;
+	width: 20em;
+	display: inline;
 }
 li.horizontal{
 	margin: 0;
 	padding: 0;
 	display: inline;
+}
+#Undo{
+	background-image: url("images/undo_icon_16.png");
+}
+#Redo{
+	background-image: url("images/undo_icon_16.png");
 }
