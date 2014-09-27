@@ -2,20 +2,23 @@
 <html>
 <head lang="en">
    <meta charset="utf-8">
-   <title>Change this</title>
+   <title>Welcome to GrouPaint</title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/login.css">
    <!--<script type="text/javascript" src="js/login.js"></script>-->
 </head>
 <body>
 <canvas id="myCanvas" width="200" height="100"></canvas>
-<section>
+<section class="main">
 <h1>Welcome to GrouPaint!</h1>
 <h2>Please log in </h2>
-<form action = "get" method = "">
-User Name: <input type = "text" name = "username"> <br/>
-Password: <input type = "password" name = "pwd"> <br/>
-<input type = "submit" value = "Submit">
+<form action = "someAction.php" method = "get">
+<input type = "text" name = "username" placeholder="User Name">
+<input type = "password" name = "pwd" placeholder="Password">
+<button type = "submit" value = "Submit">Log In</button>
+</section>
+<section>
+<a href="#" class="buttonImitator">Make a new account</a>
 </section>
 </form>
 </body>

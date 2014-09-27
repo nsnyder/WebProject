@@ -1,16 +1,68 @@
+html {
+	display: table;
+}
 body {
 	background: -webkit-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Safari */
 	background: -o-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Opera 11.6 to 12.0 */
 	background: -moz-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Firefox 3.6 to 15 */
 	background: radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Standard syntax */
-	text-align: center;
+	display: table-cell;
 	margin: 0;
 	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+}
+section {
+	border-radius: 1em;
+	display: block;
+	margin: 1em auto;
+	padding: 2em;
+	max-width: 500px;
+}
+.main {
+	background-color: rgba(255,255,255,.5);
+}
+h1 {
+	font-size: 2.5em;
 }
 
 #myCanvas {
 	position: absolute;
 	z-index: -1;
+}
+input {
+	display: block;
+	font-family: 'Roboto Condensed';
+	font-size: 1em;
+	margin: 1em auto;
+}
+button[type="submit"]:hover {
+	background-color: rgba(255,255,255,.9);
+	cursor: pointer;
+	padding: .5em 7em;
+}
+
+a.buttonImitator:hover {
+	background-color: rgba(255,255,255,.9);
+	text-decoration: none;
+}
+
+a.buttonImitator, button[type="submit"] {
+	background-color: rgba(255,255,255,.5);
+	border: none;
+	border-radius: 5px;
+	color: #333;
+	font-family: 'Roboto Condensed';
+	font-size: 1em;
+	padding: .5em 3em;
+	text-decoration: none;
+	transition: .2s;
+}
+input[type="text"], input[type="password"] {
+	border-radius: 5px;
+	border: none;
+	padding: .5em;
+	min-width: 250px;
 }
 /*
 p {
