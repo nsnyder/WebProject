@@ -16,7 +16,7 @@ window.onload = function() {
 			
 			
 			ctx.arc(centerX,centerY,radius,0,2*Math.PI);
-			//ctx.fill();
+			ctx.fill();
 			centerX+=2*radius+2;
 		}
 		centerY+=2*radius+2;

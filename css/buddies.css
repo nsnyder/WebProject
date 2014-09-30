@@ -1,5 +1,12 @@
-﻿#buddyTile
+﻿.buddyTile
 {
 	display: inline-block;
-	
+	text-align: center;
+}
+.buddyTile a {
+	display: block;
+}
+
+#buddyFilter {
+	display: block;
 }

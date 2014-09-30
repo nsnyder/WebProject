@@ -2,10 +2,7 @@ html {
 	display: table;
 }
 body {
-	background: -webkit-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Safari */
-	background: -o-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Opera 11.6 to 12.0 */
-	background: -moz-radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Firefox 3.6 to 15 */
-	background: radial-gradient(circle, #f87, #ff8, #3e7, #9df); /* Standard syntax */
+	
 	display: table-cell;
 	margin: 0;
 	overflow: hidden;
@@ -20,14 +17,17 @@ section {
 	max-width: 500px;
 }
 .main {
-	background-color: rgba(255,255,255,.5);
+	background-color: rgba(255,255,255,.8);
 }
 h1 {
 	font-size: 2.5em;
 }
 
 #myCanvas {
+	-webkit-filter: blur(5px);
+	left: 0;
 	position: absolute;
+	top: 0;
 	z-index: -1;
 }
 input {
