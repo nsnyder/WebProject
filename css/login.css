@@ -36,18 +36,18 @@ input {
 	margin: 1em auto;
 }
 button[type="submit"]:hover, button[type="submit"].ready {
-	background-color: rgba(255,255,255,.9);
+	background-color: rgba(153,187,255,.9);
 	cursor: pointer;
 	padding: .5em 7em;
 }
 
 a.buttonImitator:hover {
-	background-color: rgba(255,255,255,.9);
+	background-color: rgba(153,187,255,.9);
 	text-decoration: none;
 }
 
 a.buttonImitator, button[type="submit"] {
-	background-color: rgba(255,255,255,.5);
+	background-color: rgba(153,187,255,.5);
 	border: none;
 	border-radius: 5px;
 	color: #000;
@@ -57,6 +57,7 @@ a.buttonImitator, button[type="submit"] {
 	transition: .2s;
 }
 input[type="text"], input[type="password"] {
+	background-color: #ddd;
 	border-radius: 5px;
 	border: none;
 	padding: .5em;
