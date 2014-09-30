@@ -3,7 +3,8 @@ table, th, td, tr, div{
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: normal;
 }
-body{
+
+#MainContent{
 	padding: 0 1em 0 1em;
 }
 
