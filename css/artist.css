@@ -1,11 +1,4 @@
 /*General styling*/
-table, th, td, tr, div{
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: normal;
-}
-body{
-	padding: 0 1em 0 1em;
-}
 
 /*toolbox styling*/
 #Toolbox, #Layers
