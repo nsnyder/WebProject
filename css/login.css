@@ -32,7 +32,6 @@ h1 {
 }
 input {
 	display: block;
-	font-family: 'Roboto Condensed',Helvetica, Arial, sans-serif;
 	font-size: 1em;
 	margin: 1em auto;
 }
@@ -52,7 +51,6 @@ a.buttonImitator, button[type="submit"] {
 	border: none;
 	border-radius: 5px;
 	color: #000;
-	font-family: 'Roboto Condensed',Helvetica, Arial, sans-serif;
 	font-size: 1em;
 	padding: .5em 3em;
 	text-decoration: none;
