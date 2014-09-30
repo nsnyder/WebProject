@@ -1,0 +1,135 @@
+/*General styling*/
+table, th, td, tr, div{
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: normal;
+}
+body{
+	padding: 0 1em 0 1em;
+}
+
+/*toolbox styling*/
+#Toolbox, #Layers
+{
+	display: inline-block;
+	border: thick solid;
+	border-color: #B1DDF3;
+	border-radius: .5em;
+	margin: 1em;
+}
+th.tools{
+	padding: .2em .2em .2em .2em;
+	border-radius: .3em;
+	background: #5CB8E6;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+td.tools{
+	padding: .2em .2em .2em .2em;
+	background: #EFEFEF;
+	border-radius: .3em;
+	width: 3vw;
+	height: 3vw;
+}
+img.tools{
+	width: 100%;
+	height: 100%;
+}
+
+/*Color Pallet styling*/
+#ColorPallet{
+	display: inline-block;
+	border: thick solid;
+	border-color: #CCFF99;
+	border-radius: .5em;
+	margin: 1em;
+}
+th.pallet{
+	padding: .2em .2em .2em .2em;
+	border-radius: .3em;
+	background: #B8E65C;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+td.pallet{
+	background: #EFEFEF;
+	border-radius: .3em;
+	width: 1.5vw;
+	height: 1.5vw;
+}
+/*1st row*/
+#c1{
+	background: #FFFFFF;
+	border: thin solid #F1F1F1;
+}
+#c2{background: #000000;}
+#c3{background:#666666;}
+#c4{background:#B2B2B2;}
+/*2nd row*/
+#c5{background:#000099;}
+#c6{background:#0000FF;}
+#c7{background:#3399FF;}
+#c8{background:#66CCFF;}
+/*3rd row*/
+#c9{background:#FFFF00;}
+#c10{background:#FFFF66;}
+#c11{background:#00CC00;}
+#c12{background:#66FF66;}
+/*4th row*/
+#c13{background:#FF0000;}
+#c14{background:#FF8080;}
+#c15{background:#9900CC;}
+#c16{background:#CC66FF;}
+/*5th row*/
+#c17{background:#663300;}
+#c18{background:#996633;}
+#c19{background:#FF9933;}
+#c20{background:#FFCC66;}
+
+/*Canvas and Frame styling*/
+#Frame{
+	display: inline-block;
+	height: 320px;
+	width: 480px;
+	margin: 1em 1em 1em 0;
+	padding: 0 0 0 0;
+	border-style: solid;
+	border-color: #9C7B59;
+	border-width: 50px;
+}
+
+/*Action bar list styling*/
+#ActionBar{
+	margin: 0;
+	padding: 0;
+	width: 580px;
+	background-color: #FFFFFF;
+	border-radius: .5em;
+}
+ul.action{
+	list-style-type: none;
+	font-size: .8em;
+	color: #FFFFFF;
+	padding: .5em;
+	border-radius: .5em;
+	background-color: #EBC2FF;
+}
+#Share{
+	margin-right: 2em;
+	width: 12em;
+	display: inline;
+}
+#UndoRedo{
+	margin-right: 2em;
+	width: 10em;
+	display: inline;
+}
+#File{
+	margin-right: 2em;
+	width: 20em;
+	display: inline;
+}
+li.horizontal{
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
