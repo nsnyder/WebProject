@@ -1,6 +1,7 @@
 ﻿.buddyTile
 {
 	display: inline-block;
+	margin: .5em;
 	text-align: center;
 }
 .buddyTile a {
@@ -8,5 +9,16 @@
 }
 
 #buddyFilter {
+	background-color: #ddd;
+	border-radius: 5px;
+	border: none;
 	display: block;
+	font-size: 1em;
+	margin: 1em 0;
+	padding: .5em;
+	min-width: 400px;
+}
+img {
+	height: 12em;
+	border-radius: 100%;
 }
