@@ -10,6 +10,10 @@ html {
 	font-family: 'Roboto Condensed',Helvetica, Arial, sans-serif;
 }
 
+#MainContent{
+	padding: 0 1em 0 1em;
+}
+
 body {
 	font-weight: 400;
 	margin: 0;

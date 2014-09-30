@@ -4,10 +4,6 @@ table, th, td, tr, div{
 	font-weight: normal;
 }
 
-#MainContent{
-	padding: 0 1em 0 1em;
-}
-
 /*toolbox styling*/
 #Toolbox{
 	display: inline-block;
