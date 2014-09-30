@@ -17,7 +17,7 @@ section {
 	max-width: 500px;
 }
 .main {
-	background-color: rgba(255,255,255,.8);
+	background-color: rgba(255,255,255,.5);
 }
 h1 {
 	font-size: 2.5em;
@@ -25,6 +25,10 @@ h1 {
 
 #myCanvas {
 	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
 	left: 0;
 	position: absolute;
 	top: 0;
