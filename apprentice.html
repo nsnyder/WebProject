@@ -9,7 +9,7 @@
 <body>
 <nav>
 	<a href="/WebProject/artist.html" title="Home">Home</a>
-	<input type="text" id="buddySearchBar" placeholder="Find a buddy"></input>
+	<input type="text" id="buddySearchBar" placeholder="Find a buddy"/>
 	<a href="/WebProject/buddies.html" title="Buddies List">Buddies</a>
 	<a href="#" title="Logout">Logout</a>
 </nav>
@@ -17,50 +17,55 @@
 	<div id="Frame">
 	</div>
 	<table id="Toolbox">
-		<th colspan=2 class="tools">Toolbox</th>
+		<tr>
+			<th colspan=2 class="tools">Toolbox</th> 
+		</tr>
+	<tbody>
 		<tr>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/paint_brush_icon.png" alt="brush">
+				<img class="tools" onclick="" src="images/paint_brush_icon.png" alt="brush">
 			</td>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/eraser_icon.png" alt="eraser">
+				<img class="tools" onclick="" src="images/eraser_icon.png" alt="eraser">
 			</td>
 		</tr>
 		<tr>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/color_picker_icon2.png" alt="dropper">
+				<img class="tools" onclick="" src="images/color_picker_icon2.png" alt="dropper">
 			</td>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/text_icon.png" alt="text">
+				<img class="tools" onclick="" src="images/text_icon.png" alt="text">
 			</td>
 		</tr>
 		<tr>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/magnifying_glass_icon.png" alt="zoom">
+				<img class="tools" onclick="" src="images/magnifying_glass_icon.png" alt="zoom">
 			</td>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/paint_bucket_icon.png" alt="fill">
+				<img class="tools" onclick="" src="images/paint_bucket_icon.png" alt="fill">
 			</td>
 		</tr>
 		<tr>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/select_icon.png" alt="select">
+				<img class="tools" onclick="" src="images/select_icon.png" alt="select">
 			</td>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/pan_icon.png" alt="pan">
+				<img class="tools" onclick="" src="images/pan_icon.png" alt="pan">
 			</td>
 		</tr>
 		<tr>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/rectangle_icon.png" alt="rectangle">
+				<img class="tools" onclick="" src="images/rectangle_icon.png" alt="rectangle">
 			</td>
 			<td class="tools">
-				<img class="tools"onclick="" src="images/ellipse_icon.png" alt="ellipse">
+				<img class="tools" onclick="" src="images/ellipse_icon.png" alt="ellipse">
 			</td>
 		</tr>
+		</tbody>
 	</table>
 	<table id="ColorPallet">
-		<th class="pallet" colspan=4>Color Pallet</th>
+		<tr> <th class="pallet" colspan=4>Color Pallet</th> </tr>
+		<tbody>
 		<tr class="pallet">
 			<td id="c1" class="pallet"></td>
 			<td id="c2" class="pallet"></td>
@@ -91,7 +96,7 @@
 			<td id="c19" class="pallet"></td>
 			<td id="c20" class="pallet"></td>
 		</tr>
-		
+		</tbody>
 
 	</table>
 	<div id="ActionBar">
@@ -104,8 +109,8 @@
 			<li class="horizontal"><img onclick="" src="images/social/email_16.png" alt="email"/></li>
 		</ul>
 		<ul id="UndoRedo" class="action">
-			<li class="horizontal"><button id="Undo" onclick=""/>Undo</li>
-			<li class="horizontal"><button id="Redo" onclick=""/>Redo</li>
+			<li class="horizontal"><button id="Undo" onclick="">Undo</button></li>
+			<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 		</ul>
 		<ul id="File" class="action">
 			<li class="horizontal"><button onclick="">Save</button></li>
