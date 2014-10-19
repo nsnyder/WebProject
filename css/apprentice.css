@@ -93,6 +93,14 @@ td.pallet{
 	border-width: 50px;
 }
 
+#mainCanvas{
+	display: inline-block;
+	height: 320px;
+	width: 480px;
+	margin: 0;
+	padding: 0;
+}
+
 /*Action bar list styling*/
 #ActionBar{
 	margin: 0;
