@@ -34,6 +34,7 @@ function getCursorYoffset(){
 
 function drawRectangle(){
 	c = this.canvas.getContext("2d");
+	c.beginPath();
 	if(this.endX < this.originX) {
 	//dragged to the LEFT from initial click
 		if(this.endY < this.originY) {
@@ -66,6 +67,7 @@ function drawRectangle(){
 		this.width = this.endX-this.originX;
 	}
 	c.rect(this.x, this.y, this.width, this.height);
+	c.closePath();
 	c.stroke();
 }
 
@@ -73,7 +75,7 @@ function drawRectangle(){
 function Rectangle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawRectangle = drawRectangle;
+	this.draw = drawRectangle;
 	//Record of initial mouse click
 	this.originX;
 	this.originY;
@@ -106,12 +108,14 @@ function Rectangle(cnv){
 		tool.endX = e.clientX - getCursorXoffset();
 		tool.endY = e.clientY - getCursorYoffset();
 		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
-		tool.drawRectangle();
+		tool.draw();
 		// push new rectangle unto drawables?
 		painting = false;
 		
 		canvas = document.getElementById("mainCanvas");
 		canvas.removeEventListener("mousemove", tool.mouseHold);
+		drawables.push(tool);
+		tool = new Rectangle(canvas);
 	}
 	this.mouseHold = function(e) {
 		painting = true;
@@ -121,7 +125,7 @@ function Rectangle(cnv){
 		console.log("dragging");
 		tool.endX = e.clientX - getCursorXoffset();
 		tool.endY = e.clientY - getCursorYoffset();
-		tool.drawRectangle();
+		tool.draw();
 	}
 	this.mouseOut = function(e) {
 		painting = false;
