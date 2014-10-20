@@ -20,7 +20,7 @@ function BrushStroke() {
 		ctx = cnv.getContext("2d");
 		if(xCoords.length>1) {
 			ctx.moveTo(this.xCoords[0],this.yCoords[0]);
-				for(int i=1;i<xCoords.length;++i) {
+				for(var i=1;i<xCoords.length;++i) {
 				// draw 
 			}
 		} else if(xCoords.length>0) { // is single pointer

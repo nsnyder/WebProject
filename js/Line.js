@@ -1,9 +1,14 @@
+//Tracks when drawing should be done and when to stop
+var painting = false;
+
+//Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
 	var parts = str.split("p");
 	var val = parts[0];
 	val = Number(val);
 	return val;
 }
+
 //determines cursor x offset relative to canvas (if canvas is moved or other objects are edited then this function may not be accurate anymore)
 function getCursorXoffset(){
 	//Get Main content left padding
@@ -14,6 +19,7 @@ function getCursorXoffset(){
 	var frameLeftWidth = measureToNumber(frameStyle.borderLeftWidth);
 	return leftPad+frameLeftWidth;
 }
+
 //determines cursor y offset relative to canvas(if canvas is moved or other objects are edited then this function may not be accurate anymore)
 function getCursorYoffset(){
 	//Get Frame width for left and top and get frame top margin
@@ -26,34 +32,45 @@ function getCursorYoffset(){
 	return frameTopWidth+frameTopMargin+mainNavHeight;
 }
 
+//Line Object
 function Line(){
 	this.color="#000000";
 	this.draw=function(cnv){
 	}
+	//Record of initial mouse click
 	this.originX;
 	this.originY;
+	
+	//Record of mouse release
 	this.endX;
 	this.endY;
-	this.mouseClick = function(e) {		
+	
+	//Event listener function on mous click
+	this.mouseDown = function(e) {		
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		this.originX = e.clientX - getCursorXoffset();
 		this.originY = e.clientY - getCursorYoffset();
-		alert("X: " + this.originX + " Y: " + this.originY);
-		mouseDown = true;
+		console.log("origin: X: " + this.originX + " Y: " + this.originY);
+		painting = true;
 	}
 	this.mouseHold = function() {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
-		mouseDown = true;
+		painting = true;
 	}
-	this.mouseRelease = function() {
+	this.mouseRelease = function(e) {
+		//Adjust endX and endY to map to canvas context
+		this.endX = e.clientX - getCursorXoffset();
+		this.endY = e.clientY - getCursorYoffset();
+		console.log("end: X: " + this.endX + " Y: " + this.endY);
 		// push new line unto drawables?
-		mouseDown = false;
+		painting = false;
 	}
 }
 
 window.onload=function(){
 	myLine = new Line;
 	canvas = document.getElementById("mainCanvas");
-	canvas.addEventListener("click", myLine.mouseClick);
+	canvas.addEventListener("mousedown", myLine.mouseDown);
+	canvas.addEventListener("mouseup", myLine.mouseRelease);
 }
