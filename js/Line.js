@@ -10,19 +10,19 @@ function Line(){
 		
 		//Get Main content left padding
 		var mainContent = document.getElementById("MainContent");
-		var leftPad = div.paddingLeft;
+		var leftPad = mainContent.paddingLeft;
 		//Get Frame width for left and top and get frame top margin
 		var frame = document.getElementById("Frame");
 		var frameLeftWidth = frame.borderLeftWidth;
 		var frameTopWidth = frame.borderTopWidth;
 		var frameTopMargin = frame.marginTop;
+		//Get MainNav box height (assuming nav bar remains same format)
+		var mainNav = document.getElementById("MainNav");
+		var mainNavHeight = mainNav.height+mainNav.paddingTop;
 		
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		this.originX = e.clientX - leftPad - frameLeftWidth;
-		this.originY = e.clientY - frameTopWidth - frameTopMargin
-		
-		
-		this.originY = e.clientY;
+		this.originY = e.clientY - frameTopWidth - frameTopMargin - mainNavHeight;
 		alert("X: " + this.originX + " Y: " + this.originY);
 		mouseDown = true;
 	}
