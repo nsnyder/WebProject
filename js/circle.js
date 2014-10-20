@@ -46,6 +46,7 @@ function drawCircle(){
 		this.centerX = this.originX + (Math.cos(this.theta))*this.radius;
 	}
 	else{
+	//dragged to the LEFT
 		var opposite = this.endY-this.originY;
 		var adjacent = this.originX-this.endX;
 		this.theta = Math.atan(opposite/adjacent);
