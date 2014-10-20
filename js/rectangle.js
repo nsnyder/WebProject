@@ -1,6 +1,6 @@
 //Tracks when drawing should be done and when to stop
 var painting = false;
-//Line
+//Rectangle
 var myRectangle;
 //Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
@@ -74,7 +74,7 @@ function drawRectangle(){
 function Rectangle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawLine = drawLine;
+	this.drawRectangle = drawRectangle;
 	//Record of initial mouse click
 	this.originX;
 	this.originY;
@@ -101,7 +101,7 @@ function Rectangle(cnv){
 		myRectangle.endX = e.clientX - getCursorXoffset();
 		myRectangle.endY = e.clientY - getCursorYoffset();
 		console.log("end: X: " + myRectangle.endX + " Y: " + myRectangle.endY);
-		myRectangle.drawLine();
+		myRectangle.drawRectangle();
 		// push new rectangle unto drawables?
 		painting = false;
 	}
@@ -118,5 +118,4 @@ window.onload=function(){
 	myRectangle = new Rectangle(canvas);
 	canvas.addEventListener("mousedown", myRectangle.mouseDown);
 	canvas.addEventListener("mouseup", myRectangle.mouseRelease);
-	//canvas.addEventListener("mouseout", myRectangle.mouseOut);
 }
