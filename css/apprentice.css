@@ -94,8 +94,6 @@ td.pallet{
 
 #mainCanvas{
 	display: inline-block;
-	height: 320px;
-	width: 480px;
 	margin: 0;
 	padding: 0;
 }
