@@ -17,7 +17,6 @@ function mouseRelease(){
 function mouseOut(){
 }
 
-function 
 
 function changeCursor(){
 	canvas.style.cursor="pointer";

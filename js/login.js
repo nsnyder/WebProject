@@ -22,6 +22,9 @@ window.onload = function() {
 		centerY+=2*radius+2;
 		centerX=5;
 	}
+	/*Login event listener*/
+	var loginBtn = document.getElementById();
+	/*end login listener*/
 }
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
