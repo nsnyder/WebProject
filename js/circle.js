@@ -35,9 +35,29 @@ function getCursorYoffset(){
 
 function drawCircle(){
 	c = this.canvas.getContext("2d");
-	this.r
-	c.arc();
+	if(this.endX > this.originX){
+	//dragged to the RIGHT
+		var opposite = this.endY-this.originY;
+		var adjacent = this.endX-this.originX;
+		this.theta = Math.atan(opposite/adjacent);
+		this.diameter = opposite/(Math.sin(this.theta));
+		this.radius = this.diameter/2;
+		this.centerY = this.originY + (Math.sin(this.theta))*this.radius;
+		this.centerX = this.originX + (Math.cos(this.theta))*this.radius;
+	}
+	else{
+		var opposite = this.endY-this.originY;
+		var adjacent = this.originX-this.endX;
+		this.theta = Math.atan(opposite/adjacent);
+		this.diameter = opposite/(Math.sin(this.theta));
+		this.radius = this.diameter/2;
+		this.centerY = this.originY + (Math.sin(this.theta))*this.radius;
+		this.centerX = this.originX - (Math.cos(this.theta))*this.radius;
+	}
+	c.beginPath();
+	c.arc(this.centerX, this.centerY, this.radius, this.startAngle, this.endAngle);
 	c.stroke();
+	c.closePath();
 }
 
 //Circle Object
@@ -53,15 +73,18 @@ function Circle(cnv){
 	this.endY;
 	//Record of circle attributes
 	this.radius;
-	this.center;
+	this.diameter;
+	this.centerX;
+	this.centerY;
 	this.startAngle = 0;
 	this.endAngle = 2.0*Math.PI;
+	this.theta;
 	//Event listener function on mouse down sets origin
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		myLine.originX = e.clientX - getCursorXoffset();
-		myLine.originY = e.clientY - getCursorYoffset();
-		console.log("origin: X: " + myLine.originX + " Y: " + myLine.originY);
+		myCircle.originX = e.clientX - getCursorXoffset();
+		myCircle.originY = e.clientY - getCursorYoffset();
+		console.log("origin: X: " + myCircle.originX + " Y: " + myCircle.originY);
 		painting = true;
 	}
 	
@@ -74,10 +97,10 @@ function Circle(cnv){
 	//Event listener function called on mouse up sets end
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		myLine.endX = e.clientX - getCursorXoffset();
-		myLine.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + myLine.endX + " Y: " + myLine.endY);
-		myLine.drawLine();
+		myCircle.endX = e.clientX - getCursorXoffset();
+		myCircle.endY = e.clientY - getCursorYoffset();
+		console.log("end: X: " + myCircle.endX + " Y: " + myCircle.endY);
+		myCircle.drawCircle();
 		// push new line unto drawables?
 		painting = false;
 	}
@@ -91,8 +114,8 @@ function Circle(cnv){
 
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
-	myLine = new Line(canvas);
-	canvas.addEventListener("mousedown", myLine.mouseDown);
-	canvas.addEventListener("mouseup", myLine.mouseRelease);
-	//canvas.addEventListener("mouseout", myLine.mouseOut);
+	myCircle = new Circle(canvas);
+	canvas.addEventListener("mousedown", myCircle.mouseDown);
+	canvas.addEventListener("mouseup", myCircle.mouseRelease);
+	//canvas.addEventListener("mouseout", myCircle.mouseOut);
 }
