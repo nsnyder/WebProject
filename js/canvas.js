@@ -1,12 +1,12 @@
 //mainCanvas container
 var canvas;
 //Tells when user is holding down mouse
-var mouseDown = false;
+var painting = false;
 var drawables = [];
+var tool;
 
 window.onload=function(){
-	canvas = document.getElementById("mainCanvas");
-	canvas.addEventListener("mouseover", changeCursor);
+	
 }
 
 function render(cnv) {
@@ -15,6 +15,7 @@ function render(cnv) {
 	}
 }
 
+/*
 function BrushStroke() {
 	this.draw = function(cnv) {
 		ctx = cnv.getContext("2d");
@@ -45,3 +46,4 @@ function BrushStroke() {
 		mouseDown = false;
 	}
 }
+*/
