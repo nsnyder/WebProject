@@ -1,7 +1,6 @@
 //Tracks when drawing should be done and when to stop
 var painting = false;
 //Rectangle
-var myRectangle;
 //Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
 	var parts = str.split("p");
@@ -90,30 +89,39 @@ function Rectangle(cnv){
 	//Event listener function on mouse down
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		myRectangle.originX = e.clientX - getCursorXoffset();
-		myRectangle.originY = e.clientY - getCursorYoffset();
-		console.log("origin: X: " + myRectangle.originX + " Y: " + myRectangle.originY);
+		tool.originX = e.clientX - getCursorXoffset();
+		tool.originY = e.clientY - getCursorYoffset();
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
 		
 		canvas = document.getElementById("mainCanvas");
-		canvas.addEventListener("mousemove", myRectangle.mouseHold);
+		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
+		canvas = document.getElementById("mainCanvas");
+		render(canvas);
+		
 		//Adjust endX and endY to map to canvas context
-		myRectangle.endX = e.clientX - getCursorXoffset();
-		myRectangle.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + myRectangle.endX + " Y: " + myRectangle.endY);
-		myRectangle.drawRectangle();
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		tool.drawRectangle();
 		// push new rectangle unto drawables?
 		painting = false;
 		
 		canvas = document.getElementById("mainCanvas");
-		canvas.removeEventListener("mousemove", myRectangle.mouseHold);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
 	}
 	this.mouseHold = function(e) {
 		painting = true;
-		console.log("Dragging pls");
+		//Adjust endX and endY to map to canvas context
+		canvas = document.getElementById("mainCanvas");
+		render(canvas);
+		console.log("dragging");
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		tool.drawRectangle();
 	}
 	this.mouseOut = function(e) {
 		painting = false;
@@ -122,7 +130,7 @@ function Rectangle(cnv){
 
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
-	myRectangle = new Rectangle(canvas);
-	canvas.addEventListener("mousedown", myRectangle.mouseDown);
-	canvas.addEventListener("mouseup", myRectangle.mouseRelease);
+	tool = new Rectangle(canvas);
+	canvas.addEventListener("mousedown", tool.mouseDown);
+	canvas.addEventListener("mouseup", tool.mouseRelease);
 }

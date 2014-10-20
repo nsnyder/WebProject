@@ -10,6 +10,9 @@ window.onload=function(){
 }
 
 function render(cnv) {
+	ctx = cnv.getContext("2d");
+	ctx.clearRect(0,0,cnv.width,cnv.height);
+	console.log("Clear and render");
 	for(i=0;i<drawables.length;++i) {
 		drawables[i].draw(cnv);
 	}
