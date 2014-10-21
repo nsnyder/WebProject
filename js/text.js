@@ -1,6 +1,5 @@
 //Tracks when drawing should be done and when to stop
 var painting = false;
-//Line
 var tool;
 //Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
@@ -36,7 +35,7 @@ function getCursorYoffset(){
 function drawText(){
 	c = this.canvas.getContext("2d");
 	c.beginPath();
-	c.fillText(text, this.originX, this.originY);
+	c.fillText(this.string, this.originX, this.originY);
 	c.closePath();
 }
 
@@ -44,7 +43,7 @@ function drawText(){
 function Text(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawText = drawText;
+	this.draw = drawText;
 	this.string;
 	//Record of initial mouse click
 	this.originX;
@@ -55,12 +54,16 @@ function Text(cnv){
 	//Event Listener function on keyboard presses
 	this.keyPress = function (e){
 		var keynum = e.which;
-		this.canvas.addEventListener("keypress", function(){
-											var k = e.which;
-											if(k == 13){enterPressed = true;}
-											});
-		while(!enterPressed){
-			tool.string += String.fromCharCode(keynum);
+		tool.string += String.fromCharCode(keynum);
+		this.canvas.addEventListener("keypress", enterPress);
+	}
+	this.enterPress = function(e){
+		function isEnter(){
+			var k = e.which;
+			if(k == 13){
+				this.canvas.removeEventListener("keypress", keyPress);
+				this.draw;
+			}
 		}
 	}
 	//Event listener function on mouse down sets origin
