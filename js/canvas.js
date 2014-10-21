@@ -7,6 +7,8 @@ var tool;
 
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
+	
+	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("tools");
 	for(var i=0;i<tools.length;++i) {
 		tools[i].addEventListener("click",setTool);
