@@ -44,7 +44,7 @@ function drawLine(){
 function Line(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.strokeWidth = "2";
+	this.strokeWidth = 2;
 	this.draw = drawLine;
 	//Record of initial mouse click
 	this.originX;

@@ -32,12 +32,30 @@ function setTool() {
 	var clr;
 	var fclr;
 	var wdth;
+	var thicknessBtn = document.getElementById("thick");
 	try {
-		clr = tool.color;
-		fclr = tool.fillColor;
-		wdth = tool.strokeWidth;
+		if(tool.color !== undefined) {
+			clr = tool.color;
+		} else {
+			clr = "#000000";
+		}
+		if(tool.fillColor !== undefined) {
+			fclr = tool.fillColor;
+		} else {
+			fclr = "rgba(0, 0, 0, 0.0)";
+		}
+		if(tool.strokeWidth !== undefined) {
+			wdth = tool.strokeWidth;
+			thicknessBtn.value = wdth;
+		} else {
+			wdth = thicknessBtn.value;
+		}
 		
-	} catch (e) { clr = "#000000"; fclr = "rgba(0, 0, 0, 0.0)"; }
+	} catch (e) {
+		clr = "#000000";
+		fclr = "rgba(0, 0, 0, 0.0)";
+		wdth = thicknessBtn.value;
+	}
 	
 	var classes = this.classList;
 	try {
@@ -93,7 +111,6 @@ function setColor() {
 function render(cnv) {
 	ctx = cnv.getContext("2d");
 	ctx.clearRect(0,0,cnv.width,cnv.height);
-	console.log("Clear and render");
 	for(i=0;i<drawables.length;++i) {
 		drawables[i].draw(cnv);
 	}

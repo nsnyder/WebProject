@@ -53,7 +53,7 @@ function drawBrush(){
 function Brush(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.strokeWidth = "2";
+	this.strokeWidth = 2;
 	this.draw = drawBrush;
 	// Array of points
 	this.x = [];

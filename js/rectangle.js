@@ -80,7 +80,7 @@ function Rectangle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.fillColor = "rgba(0, 0, 0, 0.0)";
-	this.strokeWidth = "2";
+	this.strokeWidth = 2;
 	this.draw = drawRectangle;
 	//Record of initial mouse click
 	this.originX;
