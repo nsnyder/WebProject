@@ -37,7 +37,6 @@ h1 {
 input {
 	display: block;
 	font-size: 1em;
-	margin: 1em auto;
 }
 button[type="submit"]:hover, button[type="submit"].ready {
 	background-color: rgba(153,187,255,.9);
@@ -45,21 +44,6 @@ button[type="submit"]:hover, button[type="submit"].ready {
 	padding: .5em 7em;
 }
 
-a.buttonImitator:hover {
-	background-color: rgba(153,187,255,.9);
-	text-decoration: none;
-}
-
-a.buttonImitator, button[type="submit"] {
-	background-color: rgba(153,187,255,.5);
-	border: none;
-	border-radius: 5px;
-	color: #000;
-	font-size: 1em;
-	padding: .5em 3em;
-	text-decoration: none;
-	transition: .2s;
-}
 input[type="text"], input[type="password"] {
 	background-color: #ddd;
 	border-radius: 5px;
