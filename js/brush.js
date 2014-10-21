@@ -36,11 +36,13 @@ function getCursorYoffset(){
 function drawBrush(){
 	c = this.canvas.getContext("2d");
 	c.save();
-	c.translate(tool.x[0],tool.y[0]);
-	for(var i=1;i<tool.x.length;++i) {
-		c.lineTo(tool.x[i],tool.y[i]);
+	c.beginPath();
+	c.moveTo(this.x[0],this.y[0]);
+	for(var i=1;i<this.x.length;++i) {
+		c.lineTo(this.x[i],this.y[i]);
+		c.moveTo(this.x[i],this.y[i]);
 	}
-	
+	c.closePath();
 	c.stroke();
 	c.restore();
 }
@@ -85,7 +87,7 @@ function Brush(cnv){
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
-		tool = new Rectangle(canvas);
+		tool = new Brush(canvas);
 		tool.color = clr;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
