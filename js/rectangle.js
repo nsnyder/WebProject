@@ -105,14 +105,13 @@ function Rectangle(cnv){
 		render(canvas);
 		
 		//Adjust endX and endY to map to canvas context
-		tool.endX = e.clientX - getCursorXoffset();
-		tool.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		//tool.endX = e.clientX - getCursorXoffset();
+		//tool.endY = e.clientY - getCursorYoffset();
+		//console.log("end: X: " + tool.endX + " Y: " + tool.endY);
 		tool.draw();
 		// push new rectangle unto drawables?
 		painting = false;
 		
-		canvas = document.getElementById("mainCanvas");
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;

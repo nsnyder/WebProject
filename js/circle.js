@@ -83,12 +83,17 @@ function Circle(cnv){
 		tool.originY = e.clientY - getCursorYoffset();
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
+		
+		canvas = document.getElementById("mainCanvas");
+		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
 	
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
 		painting = true;
+		
+		
 	}
 	
 	//Event listener function called on mouse up sets end
@@ -105,6 +110,7 @@ function Circle(cnv){
 		
 		// push new line unto drawables?
 		painting = false;
+		canvas.removeEventListener("mousemove", tool.mouseHold);
 	}
 	
 	this.mouseOut = function(e) {

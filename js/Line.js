@@ -42,7 +42,7 @@ function drawLine(){
 function Line(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawLine = drawLine;
+	this.draw = drawLine;
 	//Record of initial mouse click
 	this.originX;
 	this.originY;
@@ -72,7 +72,11 @@ function Line(cnv){
 		tool.endX = e.clientX - getCursorXoffset();
 		tool.endY = e.clientY - getCursorYoffset();
 		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
-		tool.drawLine();
+		tool.draw();
+		drawables.push(tool);
+		var clr = tool.color;
+		tool = new Line(canvas);
+		tool.color = clr;
 		// push new line unto drawables?
 		painting = false;
 	}
