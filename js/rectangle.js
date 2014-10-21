@@ -87,9 +87,6 @@ function Rectangle(cnv){
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
 		canvas = document.getElementById("mainCanvas");
-		render(canvas);
-		
-		tool.draw();
 		// push new rectangle unto drawables?
 		painting = false;
 		
@@ -106,6 +103,7 @@ function Rectangle(cnv){
 		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
 	}
 	this.mouseHold = function(e) {
 		painting = true;

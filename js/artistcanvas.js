@@ -25,6 +25,25 @@ function getMousePos(canvas, evt) {
 	};
 }
 
+function updateColorDisplay() {
+	var disp = document.getElementById("demoColor");
+	try {
+		disp.style.borderColor = tool.color;
+	} catch(e) {
+		disp.style.borderColor = "black";
+	}
+	try {
+		disp.style.backgroundColor = tool.fillColor;
+	} catch(e) {
+		disp.style.backgroundColor = "argb(0,0,0,0.0)";
+	}
+	try {
+		disp.style.borderWidth = tool.strokeWidth+"px";
+	} catch(e) {
+		disp.style.borderWidth = "5px";
+	}
+}
+
 window.onload=function(){
 	layerN = 1;
 	
@@ -51,7 +70,7 @@ window.onload=function(){
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
-	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; } catch (e){} } );
+	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
 	
 	
 	document.getElementById("l1").addEventListener("change",function() { render(canvas); } );
@@ -119,6 +138,7 @@ function setLayer() {
 	}
 	
 	render(canvas);
+	updateColorDisplay();
 }
 
 function setTool() {
@@ -190,6 +210,7 @@ function setTool() {
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	} catch(e) {}
+	updateColorDisplay();
 }
 
 function setColor() {
@@ -205,6 +226,7 @@ function setColor() {
 			tool.color = wholeHexCode;
 		}
 	} catch(e) {}
+	updateColorDisplay();
 }
 
 function render(cnv) {

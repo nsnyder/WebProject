@@ -6,8 +6,6 @@ var drawables = [];
 var redoDrawables = [];
 var tool;
 
-var isChrome;
-
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -16,8 +14,26 @@ function getMousePos(canvas, evt) {
 	};
 }
 
+function updateColorDisplay() {
+	var disp = document.getElementById("demoColor");
+	try {
+		disp.style.borderColor = tool.color;
+	} catch(e) {
+		disp.style.borderColor = "black";
+	}
+	try {
+		disp.style.backgroundColor = tool.fillColor;
+	} catch(e) {
+		disp.style.backgroundColor = "argb(0,0,0,0.0)";
+	}
+	try {
+		disp.style.borderWidth = tool.strokeWidth+"px";
+	} catch(e) {
+		disp.style.borderWidth = "5px";
+	}
+}
+
 window.onload=function(){
-	isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 	
 	
 	canvas = document.getElementById("mainCanvas");
@@ -37,7 +53,7 @@ window.onload=function(){
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
-	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; } catch (e){} } );
+	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
 	
 }
 
@@ -110,6 +126,7 @@ function setTool() {
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	} catch(e) {}
+	updateColorDisplay();
 }
 
 function setColor() {
@@ -125,6 +142,7 @@ function setColor() {
 			tool.color = wholeHexCode;
 		}
 	} catch(e) {}
+	updateColorDisplay();
 }
 
 function render(cnv) {

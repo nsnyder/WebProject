@@ -117,8 +117,6 @@ function Circle(cnv){
 		
 		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
 		
-		tool.draw();
-		
 		// push new line unto drawables?
 		painting = false;
 		
@@ -135,6 +133,7 @@ function Circle(cnv){
 		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
 	}
 	
 	this.mouseOut = function(e) {

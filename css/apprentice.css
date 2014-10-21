@@ -3,6 +3,13 @@ table, th, td, tr, div{
 	font-weight: normal;
 }
 
+#demoColor {
+	height: 2em;
+	width:4em;
+	border-width: 5px;
+	border-style: solid;
+}
+
 /*toolbox styling*/
 #Toolbox{
 	display: inline-block;

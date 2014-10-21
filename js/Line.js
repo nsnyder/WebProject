@@ -59,8 +59,6 @@ function Line(cnv){
 	
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
-		render(canvas);
-		tool.draw();
 		
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
@@ -70,10 +68,10 @@ function Line(cnv){
 		var wdth = tool.strokeWidth;
 		tool = new Line(canvas);
 		tool.color = clr;
-		strokeWidth = wdth;
+		tool.strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
-		
+		render(canvas);
 		// push new line unto drawables?
 		painting = false;
 	}

@@ -61,9 +61,6 @@ function Brush(cnv){
 		// push new rectangle unto drawables?
 		painting = false;
 		
-		render(canvas);
-		tool.draw();
-		
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
@@ -71,10 +68,11 @@ function Brush(cnv){
 		var clr = tool.color;
 		var wdth = tool.strokeWidth;
 		tool = new Brush(canvas);
-		strokeWidth = wdth;
+		tool.strokeWidth = wdth;
 		tool.color = clr;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
 	}
 	this.mouseHold = function(e) {
 		pos = getMousePos(canvas,e);
