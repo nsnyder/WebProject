@@ -36,6 +36,7 @@ function drawLine(){
 	c.lineTo(this.endX, this.endY);
 	c.closePath();
 	c.strokeStyle = this.color;
+	c.lineWidth = this.strokeWidth;
 	c.stroke();
 }
 
@@ -43,6 +44,7 @@ function drawLine(){
 function Line(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
+	this.strokeWidth = "2";
 	this.draw = drawLine;
 	//Record of initial mouse click
 	this.originX;
@@ -86,8 +88,10 @@ function Line(cnv){
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
+		var wdth = tool.strokeWidth;
 		tool = new Line(canvas);
 		tool.color = clr;
+		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 		

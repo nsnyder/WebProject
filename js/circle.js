@@ -54,7 +54,10 @@ function drawCircle(){
 	c.beginPath();
 	c.arc(this.centerX, this.centerY, this.radius, this.startAngle, this.endAngle);
 	c.strokeStyle = this.color;
+	c.fillStyle = this.fillColor;
+	c.lineWidth = this.strokeWidth;
 	c.stroke();
+	c.fill();
 	c.closePath();
 }
 
@@ -62,6 +65,8 @@ function drawCircle(){
 function Circle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
+	this.fillColor = "rgba(0, 0, 0, 0.0)";
+	this.strokeWidth = "2";
 	this.draw = drawCircle;
 	//Record of initial mouse click
 	this.originX;
@@ -119,8 +124,12 @@ function Circle(cnv){
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
+		var fclr = tool.fillColor;
+		var wdth = tool.strokeWidth;
 		tool = new Circle(canvas);
 		tool.color = clr;
+		tool.fillColor = fclr;
+		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}

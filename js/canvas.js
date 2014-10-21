@@ -21,16 +21,23 @@ window.onload=function(){
 	
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
+	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
+	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; } catch (e){} } );
 	
 }
 
 function setTool() {
 	var clr;
+	var fclr;
+	var wdth;
 	try {
 		clr = tool.color;
-	} catch (e) { clr = "#000000"; }
+		fclr = tool.fillColor;
+		wdth = tool.strokeWidth;
+		
+	} catch (e) { clr = "#000000"; fclr = "rgba(0, 0, 0, 0.0)"; }
 	
 	var classes = this.classList;
 	try {
@@ -59,6 +66,8 @@ function setTool() {
 
 	try {
 		tool.color = clr;
+		tool.fillColor = fclr;
+		tool.strokeWidth = wdth;
 	} catch(e) {}
 	try {
 		canvas.addEventListener("mousedown", tool.mouseDown);
@@ -72,7 +81,12 @@ function setColor() {
 	var hash = "#";
 	var wholeHexCode = hash.concat(hexCode);
 	try {
-		tool.color = wholeHexCode;
+		if(document.getElementById("fillCheck").checked) {
+			tool.fillColor = wholeHexCode;
+		}
+		if(document.getElementById("outlineCheck").checked) {
+			tool.color = wholeHexCode;
+		}
 	} catch(e) {}
 }
 

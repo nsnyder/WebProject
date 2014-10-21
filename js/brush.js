@@ -44,6 +44,7 @@ function drawBrush(){
 	}
 	c.closePath();
 	c.strokeStyle = this.color;
+	c.lineWidth = this.strokeWidth;
 	c.stroke();
 	c.restore();
 }
@@ -52,6 +53,7 @@ function drawBrush(){
 function Brush(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
+	this.strokeWidth = "2";
 	this.draw = drawBrush;
 	// Array of points
 	this.x = [];
@@ -88,7 +90,9 @@ function Brush(cnv){
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
+		var wdth = tool.strokeWidth;
 		tool = new Brush(canvas);
+		strokeWidth = wdth;
 		tool.color = clr;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);

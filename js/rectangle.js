@@ -69,13 +69,18 @@ function drawRectangle(){
 	c.rect(this.x, this.y, this.width, this.height);
 	c.closePath();
 	c.strokeStyle = this.color;
+	c.fillStyle = this.fillColor;
+	c.lineWidth = this.strokeWidth;
 	c.stroke();
+	c.fill();
 }
 
 //Rectangle Object
 function Rectangle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
+	this.fillColor = "rgba(0, 0, 0, 0.0)";
+	this.strokeWidth = "2";
 	this.draw = drawRectangle;
 	//Record of initial mouse click
 	this.originX;
@@ -114,8 +119,12 @@ function Rectangle(cnv){
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
+		var fclr = tool.fillColor;
+		var wdth = tool.strokeWidth;
 		tool = new Rectangle(canvas);
 		tool.color = clr;
+		tool.fillColor = fclr;
+		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
