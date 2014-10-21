@@ -112,13 +112,18 @@ function Rectangle(cnv){
 		// push new rectangle unto drawables?
 		painting = false;
 		
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
 		tool = new Rectangle(canvas);
 		tool.color = clr;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
 	this.mouseHold = function(e) {
+		console.log("holding");
 		painting = true;
 		//Adjust endX and endY to map to canvas context
 		canvas = document.getElementById("mainCanvas");

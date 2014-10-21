@@ -6,7 +6,45 @@ var drawables = [];
 var tool;
 
 window.onload=function(){
-	
+	canvas = document.getElementById("mainCanvas");
+	var tools = document.getElementsByClassName("tools");
+	for(var i=0;i<tools.length;++i) {
+		tools[i].addEventListener("click",setTool);
+	}
+}
+
+function setTool() {
+	var classes = this.classList;
+	try {
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+	} catch(e) {}
+	try {
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+	} catch(e) {}
+	try {
+		canvas.removeEventListener("mousemove", tool.mouseHold);
+	} catch(e) {}
+	for(var i=0;i<classes.length;++i) {
+		if(classes[i]=="brush") {
+			// tool = new Brush();
+		}
+		if(classes[i]=="line") {
+			tool = new Line(canvas);
+		}
+		if(classes[i]=="rectangle") {
+			tool = new Rectangle(canvas);
+		}
+		if(classes[i]=="ellipse") {
+			tool = new Circle(canvas);
+		}
+	}
+	try {
+		tool.color = "#000000";
+	} catch(e) {}
+	try {
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
+	} catch(e) {}
 }
 
 function render(cnv) {
@@ -17,36 +55,3 @@ function render(cnv) {
 		drawables[i].draw(cnv);
 	}
 }
-
-/*
-function BrushStroke() {
-	this.draw = function(cnv) {
-		ctx = cnv.getContext("2d");
-		if(xCoords.length>1) {
-			ctx.moveTo(this.xCoords[0],this.yCoords[0]);
-				for(var i=1;i<xCoords.length;++i) {
-				// draw 
-			}
-		} else if(xCoords.length>0) { // is single pointer
-			ctx.moveTo(this.xCoords[0],this.yCoords[0]);
-			ctx.stroke();
-		}
-		return;
-	}
-	this.xCoords = [];
-	this.yCoords = [];
-	this.color = "#000"; // black
-	this.empty = true;
-	this.mouseClick = function() {
-		// get initial point
-		mouseDown = true;
-	}
-	this.mouseHold = function() {
-		// add points to array
-		mouseDown = true;
-	}
-	this.mouseRelease = function() {
-		mouseDown = false;
-	}
-}
-*/
