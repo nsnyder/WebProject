@@ -5,6 +5,12 @@
    <title>Change this</title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/artist.css">
+   <script language="javascript" type="text/javascript" src="js/artistcanvas.js"></script>
+   <script language="javascript" type="text/javascript" src="js/rectangle.js"></script>
+   <script language="javascript" type="text/javascript" src="js/circle.js"></script>
+   <script language="javascript" type="text/javascript" src="js/Line.js"></script>
+   <script language="javascript" type="text/javascript" src="js/brush.js"></script>
+   <script language="javascript" type="text/javascript" src="js/stack.js"></script>
 </head>
 <body>
 <nav>
@@ -15,111 +21,141 @@
 </nav>
 <div id="MainContent">
 <div id="Frame">
+	<canvas id="mainCanvas" width="480" height="320">
+		</canvas>
 </div>
 <table id="Toolbox">
-	<thead><tr><th colspan=2 class="tools">Toolbox</th></tr></thead>
+		<tr>
+			<th colspan=2 class="tools">Toolbox</th> 
+		</tr>
 	<tbody>
-	<tr>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/paint_brush_icon.png" alt="brush">
-		</td>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/eraser_icon.png" alt="eraser">
-		</td>
-	</tr>
-	<tr>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/color_picker_icon2.png" alt="dropper">
-		</td>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/text_icon.png" alt="text">
-		</td>
-	</tr>
-	<tr>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/magnifying_glass_icon.png" alt="zoom">
-		</td>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/paint_bucket_icon.png" alt="fill">
-		</td>
-	</tr>
-	<tr>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/select_icon.png" alt="select">
-		</td>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/pan_icon.png" alt="pan">
-		</td>
-	</tr>
-	<tr>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/rectangle_icon.png" alt="rectangle">
-		</td>
-		<td class="tools">
-			<img class="tools" onclick="" src="images/ellipse_icon.png" alt="ellipse">
-		</td>
-	</tr>
-	</tbody>
-</table>
+		<tr>
+			<td class="tools active brush">
+				<img class="tools" onclick="" src="images/paint_brush_icon.png" alt="brush">
+			</td>
+			<td class="tools eraser">
+				<img class="tools" onclick="" src="images/eraser_icon.png" alt="eraser">
+			</td>
+		</tr>
+		<tr>
+			<td class="tools picker">
+				<img class="tools" onclick="" src="images/color_picker_icon2.png" alt="dropper">
+			</td>
+			<td class="tools text">
+				<img class="tools" onclick="" src="images/text_icon.png" alt="text">
+			</td>
+		</tr>
+		<tr>
+			<td class="tools active line">
+				<img class="tools" onclick="" src="images/line.png" alt="line">
+			</td>
+			<td class="tools bucket">
+				<img class="tools" onclick="" src="images/paint_bucket_icon.png" alt="fill">
+			</td>
+		</tr>
+		<tr>
+			<td class="tools select">
+				<img class="tools" onclick="" src="images/select_icon.png" alt="select">
+			</td>
+			<td class="tools pan">
+				<img class="tools" onclick="" src="images/pan_icon.png" alt="pan">
+			</td>
+		</tr>
+		<tr>
+			<td class="tools active rectangle">
+				<img class="tools" onclick="" src="images/rectangle_icon.png" alt="rectangle">
+			</td>
+			<td class="tools active ellipse">
+				<img class="tools" onclick="" src="images/ellipse_icon.png" alt="ellipse">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<center>Edge</center>
+			</td>
+			<td>
+				<center>Fill</center>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<center><input id="outlineCheck" type="checkbox" checked /></center>
+			</td>
+			<td>
+				<center><input id="fillCheck" type="checkbox" /></center>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<center>Stroke Width</center>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<center><input type="range" id="thick" min="1" max="25" value="2"></center>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 <table id="Layers">
     <thead><tr><th colspan=2 class="tools">Layers</th></tr></thead>
 	<tbody>
   <tr>
-    <td class="tools">&nbsp;</td>
-    <td class="tools">Layer 1</td>
+    <td class="tools"><center><input id="l1" type="checkbox" checked /></center></td>
+    <td class="tools layer selected" value=1>Layer 1</td>
   </tr>
   <tr>
-    <td class="tools">&nbsp;</td>
-    <td class="tools">Layer 2</td>
+    <td class="tools"><center><input id="l2" type="checkbox" checked /></center></td>
+    <td class="tools layer" value=2>Layer 2</td>
   </tr>
   <tr>
-    <td class="tools">&nbsp;</td>
-    <td class="tools">Layer 3</td>
+    <td class="tools"><center><input id="l3" type="checkbox" checked /></center></td>
+    <td class="tools layer" value=3>Layer 3</td>
   </tr>
   <tr>
-    <td class="tools">&nbsp;</td>
-    <td class="tools">Layer 3</td>
+    <td class="tools"><center><input id="l4" type="checkbox" checked /></center></td>
+    <td class="tools layer" value=4>Layer 4</td>
   </tr>
   <tr>
-    <td class="tools">&nbsp;</td>
-    <td class="tools">Layer 4</td>
+    <td class="tools"><center><input id="l5" type="checkbox" checked /></center></td>
+    <td class="tools layer" value=5>Layer 5</td>
   </tr>
   </tbody>
 </table>
 <table id="ColorPallet">
-	<thead><tr><th class="pallet" colspan=4>Color Pallet</th></tr></thead>
-	<tbody>
-	<tr class="pallet">
-		<td id="c1" class="pallet"></td>
-		<td id="c2" class="pallet"></td>
-		<td id="c3" class="pallet"></td>
-		<td id="c4" class="pallet"></td>
-	</tr>
-	<tr class="pallet">
-		<td id="c5" class="pallet"></td>
-		<td id="c6" class="pallet"></td>
-		<td id="c7" class="pallet"></td>
-		<td id="c8" class="pallet"></td>
-	</tr>
-	<tr class="pallet">
-		<td id="c9" class="pallet"></td>
-		<td id="c10" class="pallet"></td>
-		<td id="c11" class="pallet"></td>
-		<td id="c12" class="pallet"></td>
-	</tr>
-	<tr class="pallet">
-		<td id="c13" class="pallet"></td>
-		<td id="c14" class="pallet"></td>
-		<td id="c15" class="pallet"></td>
-		<td id="c16" class="pallet"></td>
-	</tr>
-	<tr class="pallet">
-		<td id="c17" class="pallet"></td>
-		<td id="c18" class="pallet"></td>
-		<td id="c19" class="pallet"></td>
-		<td id="c20" class="pallet"></td>
-	</tr>
-	</tbody>
+		<tr> <th class="pallet" colspan=4>Color Pallet</th> </tr>
+		<tbody>
+		<tr class="pallet">
+			<td id="cFFFFFF" class="colors"></td>
+			<td id="c000000" class="colors"></td>
+			<td id="c666666" class="colors"></td>
+			<td id="cB2B2B2" class="colors"></td>
+		</tr>
+		<tr class="pallet">
+			<td id="c000099" class="colors"></td>
+			<td id="c0000FF" class="colors"></td>
+			<td id="c3399FF" class="colors"></td>
+			<td id="c66CCFF" class="colors"></td>
+		</tr>
+		<tr class="pallet">
+			<td id="cFFFF00" class="colors"></td>
+			<td id="cFFFF66" class="colors"></td>
+			<td id="c00CC00" class="colors"></td>
+			<td id="c66FF66" class="colors"></td>
+		</tr>
+		<tr class="pallet">
+			<td id="cFF0000" class="colors"></td>
+			<td id="cFF8080" class="colors"></td>
+			<td id="c9900CC" class="colors"></td>
+			<td id="cCC66FF" class="colors"></td>
+		</tr>
+		<tr class="pallet">
+			<td id="c663300" class="colors"></td>
+			<td id="c996633" class="colors"></td>
+			<td id="cFF9933" class="colors"></td>
+			<td id="cFFCC66" class="colors"></td>
+		</tr>
+		</tbody>
 
 </table>
 <div id="ActionBar">

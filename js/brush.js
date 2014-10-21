@@ -10,29 +10,6 @@ function measureToNumber(str){
 	return val;
 }
 
-//determines cursor x offset relative to canvas (if canvas is moved or other objects are edited then this function may not be accurate anymore)
-function getCursorXoffset(){
-	//Get Main content left padding
-	var mainContentStyle = getComputedStyle(document.getElementById("MainContent"), null);
-	var leftPad = measureToNumber(mainContentStyle.paddingLeft);
-	//Get Frame width for left and top and get frame top margin
-	var frameStyle = getComputedStyle(document.getElementById("Frame"), null);
-	var frameLeftWidth = measureToNumber(frameStyle.borderLeftWidth);
-	return leftPad+frameLeftWidth;
-}
-
-//determines cursor y offset relative to canvas(if canvas is moved or other objects are edited then this function may not be accurate anymore)
-function getCursorYoffset(){
-	//Get Frame width for left and top and get frame top margin
-	var frameStyle = getComputedStyle(document.getElementById("Frame"), null);
-	var frameTopWidth = measureToNumber(frameStyle.borderTopWidth);
-	var frameTopMargin = measureToNumber(frameStyle.marginTop);
-	//Get MainNav box height
-	var mainNavStyle = getComputedStyle(document.getElementById("MainNav"), null);
-	var mainNavHeight = measureToNumber(mainNavStyle.height)+ measureToNumber(mainNavStyle.paddingBottom) + measureToNumber(mainNavStyle.paddingTop);
-	return frameTopWidth+frameTopMargin+mainNavHeight;
-}
-
 function drawBrush(){
 	c = this.canvas.getContext("2d");
 	c.save();
@@ -62,10 +39,11 @@ function Brush(cnv){
 	//Event listener function on mouse down
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		tool.x.push(e.clientX - getCursorXoffset());
-		tool.y.push(e.clientY - getCursorYoffset());
-		tool.x.push(e.clientX - getCursorXoffset());
-		tool.y.push(e.clientY - getCursorYoffset());
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
 		
 		painting = true;
 		
@@ -76,8 +54,9 @@ function Brush(cnv){
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		tool.x.push(e.clientX - getCursorXoffset());
-		tool.y.push(e.clientY - getCursorYoffset());
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
 		
 		// push new rectangle unto drawables?
 		painting = false;
@@ -98,8 +77,9 @@ function Brush(cnv){
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
 	this.mouseHold = function(e) {
-		tool.x.push(e.clientX - getCursorXoffset());
-		tool.y.push(e.clientY - getCursorYoffset());
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
 		painting = true;
 		canvas = document.getElementById("mainCanvas");
 		
@@ -111,10 +91,3 @@ function Brush(cnv){
 	}
 }
 
-/*
-window.onload=function(){
-	canvas = document.getElementById("mainCanvas");
-	tool = new Rectangle(canvas);
-	canvas.addEventListener("mousedown", tool.mouseDown);
-	canvas.addEventListener("mouseup", tool.mouseRelease);
-}*/

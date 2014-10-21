@@ -2,11 +2,20 @@
 var canvas;
 //Tells when user is holding down mouse
 var painting = false;
+var drawables1 = [];
+var redoDrawables1 = [];
+var drawables2 = [];
+var redoDrawables2 = [];
+var drawables3 = [];
+var redoDrawables3 = [];
+var drawables4 = [];
+var redoDrawables4 = [];
+var drawables5 = [];
+var redoDrawables5 = [];
 var drawables = [];
 var redoDrawables = [];
 var tool;
-
-var isChrome;
+var layerN;
 
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
@@ -17,8 +26,7 @@ function getMousePos(canvas, evt) {
 }
 
 window.onload=function(){
-	isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-	
+	layerN = 1;
 	
 	canvas = document.getElementById("mainCanvas");
 	// Add event listeners to change tools
@@ -26,6 +34,12 @@ window.onload=function(){
 	for(var i=0;i<tools.length;++i) {
 		tools[i].addEventListener("click",setTool);
 	}
+	
+	var layers = document.getElementsByClassName("layer");
+	for(var i=0;i<layers.length;++i) {
+		layers[i].addEventListener("click",setLayer);
+	}
+	
 	// Add event listeners to change color
 	var colors = document.getElementsByClassName("colors");
 	for(var i=0;i<colors.length;++i) {
@@ -39,10 +53,69 @@ window.onload=function(){
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; } catch (e){} } );
 	
+	
+	document.getElementById("l1").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l3").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l4").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l5").addEventListener("change",function() { render(canvas); } );
+}
+function setLayer() {
+	var layers = document.getElementsByClassName("layer");
+	for(var i=0;i<layers.length;++i) {
+		layers[i].className = layers[i].className.replace( /(?:^|\s)selected(?!\S)/g , '' )
+	}
+	this.className += " selected";
+	if(layerN==1) {
+		drawables1 = drawables;
+		redoDrawables1 = redoDrawables;
+	}
+	if(layerN==2) {
+		drawables2 = drawables;
+		redoDrawables2 = redoDrawables;
+	}
+	if(layerN==3) {
+		drawables3 = drawables;
+		redoDrawables3 = redoDrawables;
+	}
+	if(layerN==4) {
+		drawables4 = drawables;
+		redoDrawables4 = redoDrawables;
+	}
+	if(layerN==5) {
+		drawables5 = drawables;
+		redoDrawables5 = redoDrawables;
+	}
+	if(this.attributes["value"].value == "1") {
+		drawables = drawables1;
+		redoDrawables = redoDrawables1;
+		layerN = 1;
+	}
+	if(this.attributes["value"].value == "2") {
+		drawables = drawables2;
+		redoDrawables = redoDrawables2;
+		layerN = 2;
+	}
+	if(this.attributes["value"].value == "3") {
+		drawables = drawables3;
+		redoDrawables = redoDrawables3;
+		layerN = 3;
+	}
+	if(this.attributes["value"].value == "4") {
+		drawables = drawables4;
+		redoDrawables = redoDrawables4;
+		layerN = 4;
+	}
+	if(this.attributes["value"].value == "5") {
+		drawables = drawables5;
+		redoDrawables = redoDrawables5;
+		layerN = 5;
+	}
+	render(canvas);
 }
 
 function setTool() {
-	var tools = document.getElementsByClassName("tools");
+	var tools = document.getElementsByClassName("active");
 	for(var i=0;i<tools.length;++i) {
 		tools[i].className = tools[i].className.replace( /(?:^|\s)selected(?!\S)/g , '' )
 	}
@@ -130,8 +203,51 @@ function setColor() {
 function render(cnv) {
 	ctx = cnv.getContext("2d");
 	ctx.clearRect(0,0,cnv.width,cnv.height);
-	for(i=0;i<drawables.length;++i) {
-		drawables[i].draw(cnv);
+	
+	
+	
+	if(layerN==1) {
+		drawables = drawables1;
+	}
+	if(layerN==2) {
+		drawables = drawables2;
+	}
+	if(layerN==3) {
+		drawables = drawables3;
+	}
+	if(layerN==4) {
+		drawables = drawables4;
+	}
+	if(layerN==5) {
+		drawables = drawables5;
+	}
+	
+	
+	
+	if(document.getElementById("l1").checked) {
+	for(i=0;i<drawables1.length;++i) {
+		drawables1[i].draw(cnv);
+	}
+	}
+	if(document.getElementById("l2").checked) {
+	for(i=0;i<drawables2.length;++i) {
+		drawables2[i].draw(cnv);
+	}
+	}
+	if(document.getElementById("l3").checked) {
+	for(i=0;i<drawables3.length;++i) {
+		drawables3[i].draw(cnv);
+	}
+	}
+	if(document.getElementById("l4").checked) {
+	for(i=0;i<drawables4.length;++i) {
+		drawables4[i].draw(cnv);
+	}
+	}
+	if(document.getElementById("l5").checked) {
+	for(i=0;i<drawables5.length;++i) {
+		drawables5[i].draw(cnv);
+	}
 	}
 }
 

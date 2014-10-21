@@ -85,8 +85,10 @@ function Circle(cnv){
 	//Event listener function on mouse down sets origin
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		tool.originX = e.clientX - getCursorXoffset();
-		tool.originY = e.clientY - getCursorYoffset();
+		pos = getMousePos(canvas,e);
+		tool.originX = pos.x;
+		tool.originY = pos.y;
+
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
 		
@@ -97,8 +99,9 @@ function Circle(cnv){
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
-		tool.endX = e.clientX - getCursorXoffset();
-		tool.endY = e.clientY - getCursorYoffset();
+		pos = getMousePos(canvas,e);
+		tool.endX = pos.x;
+		tool.endY = pos.y;
 		
 		render(canvas);
 		tool.draw();
