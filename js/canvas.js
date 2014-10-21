@@ -3,11 +3,11 @@ var canvas;
 //Tells when user is holding down mouse
 var painting = false;
 var drawables = [];
+var redoDrawables = [];
 var tool;
 
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
-	
 	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("tools");
 	for(var i=0;i<tools.length;++i) {
@@ -18,9 +18,20 @@ window.onload=function(){
 	for(var i=0;i<colors.length;++i) {
 		colors[i].addEventListener("click",setColor);
 	}
+	
+	var undoBtn = document.getElementById("Undo");
+	var redoBtn = document.getElementById("Redo");
+	undoBtn.addEventListener("click",undo);
+	redoBtn.addEventListener("click",redo);
+	
 }
 
 function setTool() {
+	var clr;
+	try {
+		clr = tool.color;
+	} catch (e) { clr = "#000000"; }
+	
 	var classes = this.classList;
 	try {
 		canvas.removeEventListener("mousedown", tool.mouseDown);
@@ -45,8 +56,9 @@ function setTool() {
 			tool = new Circle(canvas);
 		}
 	}
+
 	try {
-		tool.color = "#000000";
+		tool.color = clr;
 	} catch(e) {}
 	try {
 		canvas.addEventListener("mousedown", tool.mouseDown);
@@ -59,7 +71,9 @@ function setColor() {
 	var hexCode = id.slice(1, id.length);
 	var hash = "#";
 	var wholeHexCode = hash.concat(hexCode);
-	tool.color = wholeHexCode;
+	try {
+		tool.color = wholeHexCode;
+	} catch(e) {}
 }
 
 function render(cnv) {
