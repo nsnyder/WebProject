@@ -52,18 +52,17 @@ function Text(cnv){
 	this.fontSize;
 	this.fontFace;
 	//Event Listener function on keyboard presses
-	this.keyPress = function (e){
-		var keynum = e.which;
+	this.keyDown = function(e){
+		var keynum = e.keyCode;
 		tool.string += String.fromCharCode(keynum);
-		this.canvas.addEventListener("keypress", enterPress);
+		this.canvas.addEventListener("keydown", tool.enterPress, true);
 	}
+	//Event Listener function on keyboard press listens for enter key
 	this.enterPress = function(e){
-		function isEnter(){
-			var k = e.which;
-			if(k == 13){
-				this.canvas.removeEventListener("keypress", keyPress);
-				this.draw;
-			}
+		var k = e.which;
+		if(k == 13){
+			this.canvas.removeEventListener("keydown", tool.keyPress, true);
+			this.draw();
 		}
 	}
 	//Event listener function on mouse down sets origin
@@ -90,10 +89,13 @@ function Text(cnv){
 }
 
 window.onload=function(){
+	function test(){
+		alert("hi!");
+	}
 	canvas = document.getElementById("mainCanvas");
 	tool = new Text(canvas);
 	canvas.addEventListener("mousedown", tool.mouseDown);
-	canvas.addEventListener("keypress", tool.keyPress);
+	canvas.addEventListener("keydown", test);
 	//canvas.addEventListener("mouseup", tool.mouseRelease);
 	//canvas.addEventListener("mouseout", tool.mouseOut);
 }
