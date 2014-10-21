@@ -55,26 +55,11 @@ function setTool() {
 }
 
 function setColor() {
-	var color = this.id;
-	
-	var classes = this.classList;
-	for(var i=0;i<classes.length;++i) {
-		if(classes[i]=="brush") {
-			// tool = new Brush();
-		}
-		if(classes[i]=="line") {
-			tool = new Line(canvas);
-		}
-		if(classes[i]=="rectangle") {
-			tool = new Rectangle(canvas);
-		}
-		if(classes[i]=="ellipse") {
-			tool = new Circle(canvas);
-		}
-	}
-	try {
-		tool.color = "#000000";
-	} catch(e) {}
+	var id = this.id;
+	var hexCode = id.slice(1, id.length);
+	var hash = "#";
+	var wholeHexCode = hash.concat(hexCode);
+	tool.color = wholeHexCode;
 }
 
 function render(cnv) {

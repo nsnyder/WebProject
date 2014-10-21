@@ -35,6 +35,7 @@ function drawLine(){
 	c.moveTo(this.originX, this.originY);
 	c.lineTo(this.endX, this.endY);
 	c.closePath();
+	c.strokeStyle = this.color;
 	c.stroke();
 }
 

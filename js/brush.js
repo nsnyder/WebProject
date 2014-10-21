@@ -43,6 +43,7 @@ function drawBrush(){
 		c.moveTo(this.x[i],this.y[i]);
 	}
 	c.closePath();
+	c.strokeStyle = this.color;
 	c.stroke();
 	c.restore();
 }

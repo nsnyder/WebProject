@@ -68,6 +68,7 @@ function drawRectangle(){
 	}
 	c.rect(this.x, this.y, this.width, this.height);
 	c.closePath();
+	c.strokeStyle = this.color;
 	c.stroke();
 }
 

@@ -53,6 +53,7 @@ function drawCircle(){
 	}
 	c.beginPath();
 	c.arc(this.centerX, this.centerY, this.radius, this.startAngle, this.endAngle);
+	c.strokeStyle = this.color;
 	c.stroke();
 	c.closePath();
 }
