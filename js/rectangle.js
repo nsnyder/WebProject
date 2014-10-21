@@ -133,6 +133,7 @@ function Rectangle(cnv){
 		canvas = document.getElementById("mainCanvas");
 		
 		//Adjust endX and endY to map to canvas context
+		
 		tool.endX = e.clientX - getCursorXoffset();
 		tool.endY = e.clientY - getCursorYoffset();
 		render(canvas);
