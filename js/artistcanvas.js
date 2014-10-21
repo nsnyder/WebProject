@@ -86,31 +86,38 @@ function setLayer() {
 		drawables5 = drawables;
 		redoDrawables5 = redoDrawables;
 	}
-	if(this.attributes["value"].value == "1") {
+	var classes = this.classList;
+	for(i=0;i<classes.length;++i) {
+	
+	var lastChar = classes[i].substr(classes[i].length - 1);
+	
+	if(lastChar == "1") {
 		drawables = drawables1;
 		redoDrawables = redoDrawables1;
 		layerN = 1;
 	}
-	if(this.attributes["value"].value == "2") {
+	if(lastChar == "2") {
 		drawables = drawables2;
 		redoDrawables = redoDrawables2;
 		layerN = 2;
 	}
-	if(this.attributes["value"].value == "3") {
+	if(lastChar == "3") {
 		drawables = drawables3;
 		redoDrawables = redoDrawables3;
 		layerN = 3;
 	}
-	if(this.attributes["value"].value == "4") {
+	if(lastChar == "4") {
 		drawables = drawables4;
 		redoDrawables = redoDrawables4;
 		layerN = 4;
 	}
-	if(this.attributes["value"].value == "5") {
+	if(lastChar == "5") {
 		drawables = drawables5;
 		redoDrawables = redoDrawables5;
 		layerN = 5;
 	}
+	}
+	
 	render(canvas);
 }
 

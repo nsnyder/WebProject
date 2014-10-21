@@ -5,12 +5,12 @@
    <title>Change this</title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/artist.css">
-   <script language="javascript" type="text/javascript" src="js/artistcanvas.js"></script>
-   <script language="javascript" type="text/javascript" src="js/rectangle.js"></script>
-   <script language="javascript" type="text/javascript" src="js/circle.js"></script>
-   <script language="javascript" type="text/javascript" src="js/Line.js"></script>
-   <script language="javascript" type="text/javascript" src="js/brush.js"></script>
-   <script language="javascript" type="text/javascript" src="js/stack.js"></script>
+   <script type="text/javascript" src="js/artistcanvas.js"></script>
+   <script type="text/javascript" src="js/rectangle.js"></script>
+   <script type="text/javascript" src="js/circle.js"></script>
+   <script type="text/javascript" src="js/Line.js"></script>
+   <script type="text/javascript" src="js/brush.js"></script>
+   <script type="text/javascript" src="js/stack.js"></script>
 </head>
 <body>
 <nav>
@@ -71,28 +71,28 @@
 		</tr>
 		<tr>
 			<td>
-				<center>Edge</center>
+				Edge
 			</td>
 			<td>
-				<center>Fill</center>
+				Fill
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<center><input id="outlineCheck" type="checkbox" checked /></center>
+				<input id="outlineCheck" type="checkbox" checked />
 			</td>
 			<td>
-				<center><input id="fillCheck" type="checkbox" /></center>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<center>Stroke Width</center>
+				<input id="fillCheck" type="checkbox" />
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<center><input type="range" id="thick" min="1" max="25" value="2"></center>
+				Stroke Width
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="range" id="thick" min="1" max="25" value="2">
 			</td>
 		</tr>
 		</tbody>
@@ -101,24 +101,24 @@
     <thead><tr><th colspan=2 class="tools">Layers</th></tr></thead>
 	<tbody>
   <tr>
-    <td class="tools"><center><input id="l1" type="checkbox" checked /></center></td>
-    <td class="tools layer selected" value=1>Layer 1</td>
+    <td class="tools"><input id="l1" type="checkbox" checked /></td>
+    <td class="tools layer layer1 selected">Layer 1</td>
   </tr>
   <tr>
-    <td class="tools"><center><input id="l2" type="checkbox" checked /></center></td>
-    <td class="tools layer" value=2>Layer 2</td>
+    <td class="tools"><input id="l2" type="checkbox" checked /></td>
+    <td class="tools layer layer2">Layer 2</td>
   </tr>
   <tr>
-    <td class="tools"><center><input id="l3" type="checkbox" checked /></center></td>
-    <td class="tools layer" value=3>Layer 3</td>
+    <td class="tools"><input id="l3" type="checkbox" checked /></td>
+    <td class="tools layer layer3">Layer 3</td>
   </tr>
   <tr>
-    <td class="tools"><center><input id="l4" type="checkbox" checked /></center></td>
-    <td class="tools layer" value=4>Layer 4</td>
+    <td class="tools"><input id="l4" type="checkbox" checked /></td>
+    <td class="tools layer layer4">Layer 4</td>
   </tr>
   <tr>
-    <td class="tools"><center><input id="l5" type="checkbox" checked /></center></td>
-    <td class="tools layer" value=5>Layer 5</td>
+    <td class="tools"><input id="l5" type="checkbox" checked /></td>
+    <td class="tools layer layer5">Layer 5</td>
   </tr>
   </tbody>
 </table>
