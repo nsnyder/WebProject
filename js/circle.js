@@ -91,6 +91,12 @@ function Circle(cnv){
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		
+		render(canvas);
+		tool.draw();
+		
 		painting = true;
 		
 		
@@ -99,18 +105,23 @@ function Circle(cnv){
 	//Event listener function called on mouse up sets end
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		tool.endX = e.clientX - getCursorXoffset();
-		tool.endY = e.clientY - getCursorYoffset();
+		
 		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		
 		tool.draw();
+		
+		// push new line unto drawables?
+		painting = false;
+		
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
 		tool = new Circle(canvas);
 		tool.color = clr;
-		
-		// push new line unto drawables?
-		painting = false;
-		canvas.removeEventListener("mousemove", tool.mouseHold);
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
 	
 	this.mouseOut = function(e) {

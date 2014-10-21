@@ -104,10 +104,6 @@ function Rectangle(cnv){
 		canvas = document.getElementById("mainCanvas");
 		render(canvas);
 		
-		//Adjust endX and endY to map to canvas context
-		//tool.endX = e.clientX - getCursorXoffset();
-		//tool.endY = e.clientY - getCursorYoffset();
-		//console.log("end: X: " + tool.endX + " Y: " + tool.endY);
 		tool.draw();
 		// push new rectangle unto drawables?
 		painting = false;
@@ -123,15 +119,15 @@ function Rectangle(cnv){
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
 	this.mouseHold = function(e) {
-		console.log("holding");
 		painting = true;
-		//Adjust endX and endY to map to canvas context
 		canvas = document.getElementById("mainCanvas");
-		render(canvas);
-		console.log("dragging");
+		
+		//Adjust endX and endY to map to canvas context
 		tool.endX = e.clientX - getCursorXoffset();
 		tool.endY = e.clientY - getCursorYoffset();
+		render(canvas);
 		tool.draw();
+		
 	}
 	this.mouseOut = function(e) {
 		painting = false;

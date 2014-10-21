@@ -35,64 +35,33 @@ function getCursorYoffset(){
 
 function drawBrush(){
 	c = this.canvas.getContext("2d");
-	if(this.endX < this.originX) {
-	//dragged to the LEFT from initial click
-		if(this.endY < this.originY) {
-		//dragged to the LEFT AND UP
-			this.x = this.endX;
-			this.y = this.endY;
-			this.height = this.originY-this.endY; //note: moving up is y decreasing
-			this.width = this.originX-this.endX;
-		}
-		else{
-		//dragged to the LEFT AND DOWN
-			this.x = this.endX;
-			this.y = this.originY;
-			this.height = this.endY-this.originY; //note: moving up is y decreasing
-			this.width = this.originX-this.endX;
-		}
+	c.save();
+	c.translate(tool.x[0],tool.y[0]);
+	for(var i=1;i<tool.x.length;++i) {
+		c.lineTo(tool.x[i],tool.y[i]);
 	}
-	else if(this.endY < this.originY) {
-	//dragged RIGHT AND UP
-		this.x = this.originX;
-		this.y = this.endY;
-		this.height = this.originY-this.endY; //note: moving up is y decreasing
-		this.width = this.endX-this.originX;
-	}
-	else {
-	//dragged RIGHT AND DOWN
-		this.x = this.originX;
-		this.y = this.originY;
-		this.height = this.endY-this.originY;
-		this.width = this.endX-this.originX;
-	}
-	c.rect(this.x, this.y, this.width, this.height);
+	
 	c.stroke();
+	c.restore();
 }
 
 //Brush Object
 function Brush(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawRectangle = drawRectangle;
-	//Record of initial mouse click
-	this.originX;
-	this.originY;
-	//Record of mouse release
-	this.endX;
-	this.endY;
-	//Record of where context should start drawing
-	this.x;
-	this.y;
-	//Record of dimensions
-	this.height;
-	this.width;
+	this.draw = drawBrush;
+	// Array of points
+	this.x = [];
+	this.y = [];
+
 	//Event listener function on mouse down
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		tool.originX = e.clientX - getCursorXoffset();
-		tool.originY = e.clientY - getCursorYoffset();
-		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
+		tool.x.push(e.clientX - getCursorXoffset());
+		tool.y.push(e.clientY - getCursorYoffset());
+		tool.x.push(e.clientX - getCursorXoffset());
+		tool.y.push(e.clientY - getCursorYoffset());
+		
 		painting = true;
 		
 		canvas = document.getElementById("mainCanvas");
@@ -102,19 +71,33 @@ function Brush(cnv){
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		tool.endX = e.clientX - getCursorXoffset();
-		tool.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
-		tool.drawRectangle();
+		tool.x.push(e.clientX - getCursorXoffset());
+		tool.y.push(e.clientY - getCursorYoffset());
+		
 		// push new rectangle unto drawables?
 		painting = false;
 		
-		canvas = document.getElementById("mainCanvas");
-		canvas.removeEventListener("mousemove",tool.mouseHold);
+		render(canvas);
+		tool.draw();
+		
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
+		drawables.push(tool);
+		var clr = tool.color;
+		tool = new Rectangle(canvas);
+		tool.color = clr;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}
 	this.mouseHold = function(e) {
-		console.log("Dragging");
+		tool.x.push(e.clientX - getCursorXoffset());
+		tool.y.push(e.clientY - getCursorYoffset());
 		painting = true;
+		canvas = document.getElementById("mainCanvas");
+		
+		render(canvas);
+		tool.draw();
 	}
 	this.mouseOut = function(e) {
 		painting = false;

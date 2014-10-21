@@ -33,7 +33,7 @@ function setTool() {
 	} catch(e) {}
 	for(var i=0;i<classes.length;++i) {
 		if(classes[i]=="brush") {
-			tool = new Brush();
+			tool = new Brush(canvas);
 		}
 		if(classes[i]=="line") {
 			tool = new Line(canvas);

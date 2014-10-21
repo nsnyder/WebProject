@@ -58,25 +58,38 @@ function Line(cnv){
 		tool.originY = e.clientY - getCursorYoffset();
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
+		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
 	
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
+		
+		//Adjust endX and endY to map to canvas context
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		
+		render(canvas);
+		tool.draw();
+		
 		painting = true;
 	}
 	
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
-		//Adjust endX and endY to map to canvas context
-		tool.endX = e.clientX - getCursorXoffset();
-		tool.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		render(canvas);
 		tool.draw();
+		
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
 		var clr = tool.color;
 		tool = new Line(canvas);
 		tool.color = clr;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
+		
 		// push new line unto drawables?
 		painting = false;
 	}
