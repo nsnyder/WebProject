@@ -1,10 +1,13 @@
+var message;
+var pass;
+var confpass;
 window.onload = function() {
-var pass = document.getElementById("pwd");
-var confpass = document.getElementById("confpwd");
-var message = document.getElementById("pwdconfmessage");
+pass = document.getElementById("pwd");
+confpass = document.getElementById("confpwd");
+message = document.getElementById("pwdconfmessage");
 
-pass.addEventListener("onkeyup",checkpass);
-confpass.addEventListener("onkeyup",checkpass);
+pass.addEventListener("keyup",checkpass);
+confpass.addEventListener("keyup",checkpass);
 }
 
 function checkpass()
