@@ -33,7 +33,7 @@ function getCursorYoffset(){
 	return frameTopWidth+frameTopMargin+mainNavHeight;
 }
 
-function drawRectangle(){
+function drawBrush(){
 	c = this.canvas.getContext("2d");
 	if(this.endX < this.originX) {
 	//dragged to the LEFT from initial click
@@ -70,8 +70,8 @@ function drawRectangle(){
 	c.stroke();
 }
 
-//Rectangle Object
-function Rectangle(cnv){
+//Brush Object
+function Brush(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.drawRectangle = drawRectangle;
@@ -121,9 +121,10 @@ function Rectangle(cnv){
 	}
 }
 
+/*
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
 	tool = new Rectangle(canvas);
 	canvas.addEventListener("mousedown", tool.mouseDown);
 	canvas.addEventListener("mouseup", tool.mouseRelease);
-}
+}*/

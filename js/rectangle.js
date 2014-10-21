@@ -115,7 +115,9 @@ function Rectangle(cnv){
 		canvas = document.getElementById("mainCanvas");
 		canvas.removeEventListener("mousemove", tool.mouseHold);
 		drawables.push(tool);
+		var clr = tool.color;
 		tool = new Rectangle(canvas);
+		tool.color = clr;
 	}
 	this.mouseHold = function(e) {
 		painting = true;
@@ -130,11 +132,4 @@ function Rectangle(cnv){
 	this.mouseOut = function(e) {
 		painting = false;
 	}
-}
-
-window.onload=function(){
-	canvas = document.getElementById("mainCanvas");
-	tool = new Rectangle(canvas);
-	canvas.addEventListener("mousedown", tool.mouseDown);
-	canvas.addEventListener("mouseup", tool.mouseRelease);
 }

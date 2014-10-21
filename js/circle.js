@@ -1,7 +1,3 @@
-//Tracks when drawing should be done and when to stop
-var painting = false;
-//Line
-var myCircle;
 //Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
 	var parts = str.split("p");
@@ -65,7 +61,7 @@ function drawCircle(){
 function Circle(cnv){
 	this.canvas = cnv;
 	this.color = "#000000";
-	this.drawCircle = drawCircle;
+	this.draw = drawCircle;
 	//Record of initial mouse click
 	this.originX;
 	this.originY;
@@ -83,9 +79,9 @@ function Circle(cnv){
 	//Event listener function on mouse down sets origin
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		myCircle.originX = e.clientX - getCursorXoffset();
-		myCircle.originY = e.clientY - getCursorYoffset();
-		console.log("origin: X: " + myCircle.originX + " Y: " + myCircle.originY);
+		tool.originX = e.clientX - getCursorXoffset();
+		tool.originY = e.clientY - getCursorYoffset();
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
 	}
 	
@@ -98,10 +94,15 @@ function Circle(cnv){
 	//Event listener function called on mouse up sets end
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		myCircle.endX = e.clientX - getCursorXoffset();
-		myCircle.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + myCircle.endX + " Y: " + myCircle.endY);
-		myCircle.drawCircle();
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		tool.draw();
+		drawables.push(tool);
+		var clr = tool.color;
+		tool = new Circle(canvas);
+		tool.color = clr;
+		
 		// push new line unto drawables?
 		painting = false;
 	}
@@ -112,11 +113,11 @@ function Circle(cnv){
 		painting = false;
 	}
 }
-
+/*
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
-	myCircle = new Circle(canvas);
-	canvas.addEventListener("mousedown", myCircle.mouseDown);
-	canvas.addEventListener("mouseup", myCircle.mouseRelease);
-	//canvas.addEventListener("mouseout", myCircle.mouseOut);
-}
+	tool = new Circle(canvas);
+	canvas.addEventListener("mousedown", tool.mouseDown);
+	canvas.addEventListener("mouseup", tool.mouseRelease);
+	//canvas.addEventListener("mouseout", tool.mouseOut);
+}*/

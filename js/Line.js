@@ -1,7 +1,3 @@
-//Tracks when drawing should be done and when to stop
-var painting = false;
-//Line
-var myLine;
 //Takes a string of the form ##px and extracts the ## and converts to a number
 function measureToNumber(str){
 	var parts = str.split("p");
@@ -58,9 +54,9 @@ function Line(cnv){
 	//Event listener function on mouse down
 	this.mouseDown = function(e) {	
 		//Adjust originX and originY so that it maps in accordance with canvas context
-		myLine.originX = e.clientX - getCursorXoffset();
-		myLine.originY = e.clientY - getCursorYoffset();
-		console.log("origin: X: " + myLine.originX + " Y: " + myLine.originY);
+		tool.originX = e.clientX - getCursorXoffset();
+		tool.originY = e.clientY - getCursorYoffset();
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
 	}
 	
@@ -73,10 +69,10 @@ function Line(cnv){
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		myLine.endX = e.clientX - getCursorXoffset();
-		myLine.endY = e.clientY - getCursorYoffset();
-		console.log("end: X: " + myLine.endX + " Y: " + myLine.endY);
-		myLine.drawLine();
+		tool.endX = e.clientX - getCursorXoffset();
+		tool.endY = e.clientY - getCursorYoffset();
+		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+		tool.drawLine();
 		// push new line unto drawables?
 		painting = false;
 	}
@@ -87,11 +83,11 @@ function Line(cnv){
 		painting = false;
 	}
 }
-
+/*
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
-	myLine = new Line(canvas);
-	canvas.addEventListener("mousedown", myLine.mouseDown);
-	canvas.addEventListener("mouseup", myLine.mouseRelease);
-	//canvas.addEventListener("mouseout", myLine.mouseOut);
-}
+	tool = new Line(canvas);
+	canvas.addEventListener("mousedown", tool.mouseDown);
+	canvas.addEventListener("mouseup", tool.mouseRelease);
+	//canvas.addEventListener("mouseout", tool.mouseOut);
+}*/
