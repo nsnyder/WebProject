@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -154,7 +157,7 @@
 		<ul id="File" class="action">
 			<form name="saveCanvas" id="saveCanvas" action="saveApprentice.php" method="post" style="display: inline;">
         <li class="horizontal"><button onclick="updateAndSave()">Save</button></li>
-        <input name="canvasData" id="canvasData" type="hidden">
+        <input name="canvasData" id="canvasData" type="hidden" value="<?php if(isset($_SESSION['apprenticeCanvas'])) { echo $_SESSION['apprenticeCanvas']; } ?>">
       </form>
 			<li class="horizontal"><button onclick="">Download</button></li>
 			<li class="horizontal"><button onclick="">Upload</button></li>

@@ -122,3 +122,78 @@ function Rectangle(cnv){
 		painting = false;
 	}
 }
+
+function Rectangle(cnv, clone){
+	if(clone !== undefined) {
+		for (var attr in clone) {
+			if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+		}
+	} else {
+		this.type = "Rectangle";
+		this.color = "#000000";
+		this.fillColor = "rgba(0, 0, 0, 0.0)";
+		this.strokeWidth = 2;
+		//Record of initial mouse click
+		this.originX;
+		this.originY;
+		//Record of mouse release
+		this.endX;
+		this.endY;
+		//Record of where context should start drawing
+		this.x;
+		this.y;
+		//Record of dimensions
+		this.height;
+		this.width;
+	}
+	this.canvas = cnv;
+	this.draw = drawRectangle;
+	//Event listener function on mouse down
+	this.mouseDown = function(e) {
+		//Adjust originX and originY so that it maps in accordance with canvas context
+		pos = getMousePos(canvas,e);
+		tool.originX = pos.x;
+		tool.originY = pos.y;
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
+		painting = true;
+
+		canvas = document.getElementById("mainCanvas");
+		canvas.addEventListener("mousemove", tool.mouseHold);
+	}
+	//Event listener function called on mouse up
+	this.mouseRelease = function(e) {
+		canvas = document.getElementById("mainCanvas");
+		// push new rectangle unto drawables?
+		painting = false;
+
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
+		drawables.push(tool);
+		var clr = tool.color;
+		var fclr = tool.fillColor;
+		var wdth = tool.strokeWidth;
+		tool = new Rectangle(canvas);
+		tool.color = clr;
+		tool.fillColor = fclr;
+		strokeWidth = wdth;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
+	}
+	this.mouseHold = function(e) {
+		painting = true;
+		canvas = document.getElementById("mainCanvas");
+
+		//Adjust endX and endY to map to canvas context
+		pos = getMousePos(canvas,e);
+		tool.endX = pos.x;
+		tool.endY = pos.y;
+		render(canvas);
+		tool.draw();
+
+	}
+	this.mouseOut = function(e) {
+		painting = false;
+	}
+}

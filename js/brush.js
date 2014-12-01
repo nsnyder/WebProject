@@ -89,3 +89,61 @@ function Brush(cnv){
 		painting = false;
 	}
 }
+
+function Brush(cnv, clone){
+	this.canvas = cnv;
+	for (var attr in clone) {
+    if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+  }
+
+	//Event listener function on mouse down
+	this.mouseDown = function(e) {
+		//Adjust originX and originY so that it maps in accordance with canvas context
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
+
+		painting = true;
+
+		canvas = document.getElementById("mainCanvas");
+		canvas.addEventListener("mousemove",tool.mouseHold);
+	}
+	//Event listener function called on mouse up
+	this.mouseRelease = function(e) {
+		//Adjust endX and endY to map to canvas context
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
+
+		// push new rectangle unto drawables?
+		painting = false;
+
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
+		drawables.push(tool);
+		var clr = tool.color;
+		var wdth = tool.strokeWidth;
+		tool = new Brush(canvas);
+		tool.strokeWidth = wdth;
+		tool.color = clr;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
+	}
+	this.mouseHold = function(e) {
+		pos = getMousePos(canvas,e);
+		tool.x.push(pos.x);
+		tool.y.push(pos.y);
+		painting = true;
+		canvas = document.getElementById("mainCanvas");
+
+		render(canvas);
+		tool.draw();
+	}
+	this.mouseOut = function(e) {
+		painting = false;
+	}
+}

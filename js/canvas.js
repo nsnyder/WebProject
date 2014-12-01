@@ -37,6 +37,7 @@ window.onload=function(){
 
 
 	canvas = document.getElementById("mainCanvas");
+	loadSaved(canvas);
 	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("active");
 	for(var i=0;i<tools.length;++i) {
@@ -154,6 +155,34 @@ function render(cnv) {
 }
 
 
+function loadSaved(cnv) {
+	var dataField = document.getElementById("canvasData");
+	if(dataField.value != "") {
+		var newData = JSON.parse(decodeURIComponent(dataField.value));
+		for(i=0;i<newData.drawables.length;++i) {
+			if(newData.drawables[i].type == "Text") {
+				drawables.push(new Text(cnv,newData.drawables[i]));
+			}
+			if(newData.drawables[i].type == "Brush") {
+				drawables.push(new Brush(cnv,newData.drawables[i]));
+			}
+			if(newData.drawables[i].type == "Rectangle") {
+				drawables.push(new Rectangle(cnv,newData.drawables[i]));
+			}
+			if(newData.drawables[i].type == "Circle") {
+				drawables.push(new Circle(cnv,newData.drawables[i]));
+			}
+			if(newData.drawables[i].type == "Line") {
+				drawables.push(new Line(cnv,newData.drawables[i]));
+			}
+		}
+		for(i=0;i<newData.redoDrawables.length;++i) {
+			newData.redoDrawables[i].canvas = undefined;
+		}
+	}
+	render(cnv);
+}
+
 function updateAndSave() {
 	drawables.push(tool);
 	var newData = { drawables: drawables, redoDrawables: redoDrawables };
@@ -164,7 +193,7 @@ function updateAndSave() {
 		newData.redoDrawables[i].canvas = undefined;
 	}
 	var dataField = document.getElementById("canvasData");
-	dataField.value = JSON.stringify(newData);
+	dataField.value = encodeURIComponent(JSON.stringify(newData));
 	document.getElementById("saveCanvas").submit();
 }
 

@@ -89,6 +89,49 @@ function Text(cnv){
 
 }
 
+function Text(cnv, clone){
+	for (var attr in clone) {
+		if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+	}
+	this.canvas = cnv;
+	this.draw = drawText;
+	//Event Listener function on keyboard presses
+	this.keyDown = function(e){
+		var keynum = e.keyCode;
+		tool.string += String.fromCharCode(keynum);
+		this.canvas.addEventListener("keydown", tool.enterPress, true);
+	}
+	//Event Listener function on keyboard press listens for enter key
+	this.enterPress = function(e){
+		var k = e.which;
+		if(k == 13){
+			this.canvas.removeEventListener("keydown", tool.keyPress, true);
+			this.draw();
+		}
+	}
+	//Event listener function on mouse down sets origin
+	this.mouseDown = function(e) {
+		//Adjust originX and originY so that it maps in accordance with canvas context
+		tool.originX = e.clientX - getCursorXoffset();
+		tool.originY = e.clientY - getCursorYoffset();
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
+		painting = true;
+	}
+
+	this.mouseHold = function(e) {
+		// update endx and endy
+		// constantly redraw canvas so that preview can be seen
+		painting = true;
+	}
+
+	this.mouseOut = function(e) {
+		//Adjust endX and endY to map to canvas context
+		// push new line unto drawables?
+		painting = false;
+	}
+
+}
+/*
 window.onload=function(){
 	function test(){
 		alert("hi!");
@@ -100,3 +143,4 @@ window.onload=function(){
 	//canvas.addEventListener("mouseup", tool.mouseRelease);
 	//canvas.addEventListener("mouseout", tool.mouseOut);
 }
+*/

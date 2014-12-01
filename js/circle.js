@@ -143,6 +143,73 @@ function Circle(cnv){
 		painting = false;
 	}
 }
+function Circle(cnv, clone){
+	for (var attr in clone) {
+		if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+	}
+	this.canvas = cnv;
+	this.draw = drawCircle;
+	//Event listener function on mouse down sets origin
+	this.mouseDown = function(e) {
+		//Adjust originX and originY so that it maps in accordance with canvas context
+		pos = getMousePos(canvas,e);
+		tool.originX = pos.x;
+		tool.originY = pos.y;
+
+		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
+		painting = true;
+
+		canvas = document.getElementById("mainCanvas");
+		canvas.addEventListener("mousemove", tool.mouseHold);
+	}
+
+	this.mouseHold = function(e) {
+		// update endx and endy
+		// constantly redraw canvas so that preview can be seen
+		pos = getMousePos(canvas,e);
+		tool.endX = pos.x;
+		tool.endY = pos.y;
+
+		render(canvas);
+		tool.draw();
+
+		painting = true;
+
+
+	}
+
+	//Event listener function called on mouse up sets end
+	this.mouseRelease = function(e) {
+		//Adjust endX and endY to map to canvas context
+
+		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
+
+		// push new line unto drawables?
+		painting = false;
+
+		canvas.removeEventListener("mousedown", tool.mouseDown);
+		canvas.removeEventListener("mouseup", tool.mouseRelease);
+		canvas.removeEventListener("mousemove", tool.mouseHold);
+		drawables.push(tool);
+		var clr = tool.color;
+		var fclr = tool.fillColor;
+		var wdth = tool.strokeWidth;
+		tool = new Circle(canvas);
+		tool.color = clr;
+		tool.fillColor = fclr;
+		strokeWidth = wdth;
+		canvas.addEventListener("mousedown", tool.mouseDown);
+		canvas.addEventListener("mouseup", tool.mouseRelease);
+		render(canvas);
+	}
+
+	this.mouseOut = function(e) {
+		//Adjust endX and endY to map to canvas context
+		// push new line unto drawables?
+		painting = false;
+	}
+}
+
 /*
 window.onload=function(){
 	canvas = document.getElementById("mainCanvas");
