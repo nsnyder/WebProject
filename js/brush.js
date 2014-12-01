@@ -91,10 +91,20 @@ function Brush(cnv){
 }
 
 function Brush(cnv, clone){
+	if(clone !== undefined) {
+		for (var attr in clone) {
+			if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+		}
+	} else {
+		this.type = "Brush";
+		this.color = "#000000";
+		this.strokeWidth = 2;
+		// Array of points
+		this.x = [];
+		this.y = [];
+	}
 	this.canvas = cnv;
-	for (var attr in clone) {
-    if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
-  }
+	this.draw = drawBrush;
 
 	//Event listener function on mouse down
 	this.mouseDown = function(e) {

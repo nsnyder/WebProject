@@ -46,33 +46,33 @@ function updateColorDisplay() {
 
 window.onload=function(){
 	layerN = 1;
-	
+
 	canvas = document.getElementById("mainCanvas");
 	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("active");
 	for(var i=0;i<tools.length;++i) {
 		tools[i].addEventListener("click",setTool);
 	}
-	
+
 	var layers = document.getElementsByClassName("layer");
 	for(var i=0;i<layers.length;++i) {
 		layers[i].addEventListener("click",setLayer);
 	}
-	
+
 	// Add event listeners to change color
 	var colors = document.getElementsByClassName("colors");
 	for(var i=0;i<colors.length;++i) {
 		colors[i].addEventListener("click",setColor);
 	}
-	
+
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
-	
-	
+
+
 	document.getElementById("l1").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l3").addEventListener("change",function() { render(canvas); } );
@@ -86,12 +86,12 @@ function setLayer() {
 	}
 	this.className += " selected";
 	if(layerN==1) {
-		drawables1 = drawables;
-		redoDrawables1 = redoDrawables;
+		drawables[0] = drawables;
+		redoDrawables[0] = redoDrawables;
 	}
 	if(layerN==2) {
-		drawables2 = drawables;
-		redoDrawables2 = redoDrawables;
+		drawables[1] = drawables;
+		redoDrawables[1] = redoDrawables;
 	}
 	if(layerN==3) {
 		drawables3 = drawables;
@@ -107,9 +107,9 @@ function setLayer() {
 	}
 	var classes = this.classList;
 	for(i=0;i<classes.length;++i) {
-	
+
 	var lastChar = classes[i].substr(classes[i].length - 1);
-	
+
 	if(lastChar == "1") {
 		drawables = drawables1;
 		redoDrawables = redoDrawables1;
@@ -136,7 +136,7 @@ function setLayer() {
 		layerN = 5;
 	}
 	}
-	
+
 	render(canvas);
 	updateColorDisplay();
 }
@@ -169,13 +169,13 @@ function setTool() {
 		} else {
 			wdth = thicknessBtn.value;
 		}
-		
+
 	} catch (e) {
 		clr = "#000000";
 		fclr = "rgba(0, 0, 0, 0.0)";
 		wdth = thicknessBtn.value;
 	}
-	
+
 	var classes = this.classList;
 	try {
 		canvas.removeEventListener("mousedown", tool.mouseDown);
@@ -232,9 +232,9 @@ function setColor() {
 function render(cnv) {
 	ctx = cnv.getContext("2d");
 	ctx.clearRect(0,0,cnv.width,cnv.height);
-	
-	
-	
+
+
+
 	if(layerN==1) {
 		drawables = drawables1;
 	}
@@ -250,9 +250,9 @@ function render(cnv) {
 	if(layerN==5) {
 		drawables = drawables5;
 	}
-	
-	
-	
+
+
+
 	if(document.getElementById("l1").checked) {
 	for(i=0;i<drawables1.length;++i) {
 		drawables1[i].draw(cnv);

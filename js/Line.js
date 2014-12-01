@@ -85,8 +85,21 @@ function Line(cnv){
 }
 
 function Line(cnv, clone){
-	for (var attr in clone) {
-		if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+	if(clone !== undefined) {
+		for (var attr in clone) {
+			if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+		}
+	} else {
+		this.type = "Line";
+		this.color = "#000000";
+		this.strokeWidth = 2;
+		//Record of initial mouse click
+		this.originX;
+		this.originY;
+
+		//Record of mouse release
+		this.endX;
+		this.endY;
 	}
 	this.canvas = cnv;
 	this.draw = drawLine;

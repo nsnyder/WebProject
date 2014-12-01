@@ -144,8 +144,29 @@ function Circle(cnv){
 	}
 }
 function Circle(cnv, clone){
-	for (var attr in clone) {
-		if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+	if(clone !== undefined) {
+		for (var attr in clone) {
+			if (clone.hasOwnProperty(attr)) this[attr] = clone[attr];
+		}
+	} else {
+		this.type = "Circle";
+		this.color = "#000000";
+		this.fillColor = "rgba(0, 0, 0, 0.0)";
+		this.strokeWidth = 2;
+		//Record of initial mouse click
+		this.originX;
+		this.originY;
+		//Record of mouse release
+		this.endX;
+		this.endY;
+		//Record of circle attributes
+		this.radius;
+		this.diameter;
+		this.centerX;
+		this.centerY;
+		this.startAngle = 0;
+		this.endAngle = 2.0*Math.PI;
+		this.theta;
 	}
 	this.canvas = cnv;
 	this.draw = drawCircle;

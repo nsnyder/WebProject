@@ -107,23 +107,23 @@
 	<tbody>
   <tr>
     <td class="tools"><input id="l1" type="checkbox" checked /></td>
-    <td class="tools layer layer1 selected">Layer 1</td>
+    <td class="tools layer layer1 selected">Layer 1<input type="hidden" value ="1"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l2" type="checkbox" checked /></td>
-    <td class="tools layer layer2">Layer 2</td>
+    <td class="tools layer layer2">Layer 2<input type="hidden" value ="2"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l3" type="checkbox" checked /></td>
-    <td class="tools layer layer3">Layer 3</td>
+    <td class="tools layer layer3">Layer 3<input type="hidden" value ="3"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l4" type="checkbox" checked /></td>
-    <td class="tools layer layer4">Layer 4</td>
+    <td class="tools layer layer4">Layer 4<input type="hidden" value ="4"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l5" type="checkbox" checked /></td>
-    <td class="tools layer layer5">Layer 5</td>
+    <td class="tools layer layer5">Layer 5<input type="hidden" value ="5"></td>
   </tr>
   </tbody>
 </table>
@@ -177,7 +177,7 @@
 		<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 	</ul>
 	<ul id="File" class="action">
-    <form name="saveCanvas">
+    <form name="saveCanvas" action="saveApprentice.php">
   		<li class="horizontal"><button onclick="">Save</button></li>
       <input name="canvasData" type="hidden">
     </form>
