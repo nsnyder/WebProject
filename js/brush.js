@@ -28,6 +28,7 @@ function drawBrush(){
 
 //Brush Object
 function Brush(cnv){
+	this.type = "Brush";
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.strokeWidth = 2;
@@ -37,16 +38,16 @@ function Brush(cnv){
 	this.y = [];
 
 	//Event listener function on mouse down
-	this.mouseDown = function(e) {	
+	this.mouseDown = function(e) {
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		pos = getMousePos(canvas,e);
 		tool.x.push(pos.x);
 		tool.y.push(pos.y);
 		tool.x.push(pos.x);
 		tool.y.push(pos.y);
-		
+
 		painting = true;
-		
+
 		canvas = document.getElementById("mainCanvas");
 		var test = this;
 		canvas.addEventListener("mousemove",tool.mouseHold);
@@ -57,10 +58,10 @@ function Brush(cnv){
 		pos = getMousePos(canvas,e);
 		tool.x.push(pos.x);
 		tool.y.push(pos.y);
-		
+
 		// push new rectangle unto drawables?
 		painting = false;
-		
+
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
@@ -80,7 +81,7 @@ function Brush(cnv){
 		tool.y.push(pos.y);
 		painting = true;
 		canvas = document.getElementById("mainCanvas");
-		
+
 		render(canvas);
 		tool.draw();
 	}
@@ -88,4 +89,3 @@ function Brush(cnv){
 		painting = false;
 	}
 }
-

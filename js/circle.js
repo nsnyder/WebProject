@@ -63,6 +63,7 @@ function drawCircle(){
 
 //Circle Object
 function Circle(cnv){
+	this.type = "Circle";
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.fillColor = "rgba(0, 0, 0, 0.0)";
@@ -83,7 +84,7 @@ function Circle(cnv){
 	this.endAngle = 2.0*Math.PI;
 	this.theta;
 	//Event listener function on mouse down sets origin
-	this.mouseDown = function(e) {	
+	this.mouseDown = function(e) {
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		pos = getMousePos(canvas,e);
 		tool.originX = pos.x;
@@ -91,35 +92,35 @@ function Circle(cnv){
 
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
-		
+
 		canvas = document.getElementById("mainCanvas");
 		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
-	
+
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
 		pos = getMousePos(canvas,e);
 		tool.endX = pos.x;
 		tool.endY = pos.y;
-		
+
 		render(canvas);
 		tool.draw();
-		
+
 		painting = true;
-		
-		
+
+
 	}
-	
+
 	//Event listener function called on mouse up sets end
 	this.mouseRelease = function(e) {
 		//Adjust endX and endY to map to canvas context
-		
+
 		console.log("end: X: " + tool.endX + " Y: " + tool.endY);
-		
+
 		// push new line unto drawables?
 		painting = false;
-		
+
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
@@ -135,7 +136,7 @@ function Circle(cnv){
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 		render(canvas);
 	}
-	
+
 	this.mouseOut = function(e) {
 		//Adjust endX and endY to map to canvas context
 		// push new line unto drawables?

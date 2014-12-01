@@ -41,6 +41,7 @@ function drawText(){
 
 //Text object
 function Text(cnv){
+	this.type = "Text";
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.draw = drawText;
@@ -66,26 +67,26 @@ function Text(cnv){
 		}
 	}
 	//Event listener function on mouse down sets origin
-	this.mouseDown = function(e) {	
+	this.mouseDown = function(e) {
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		tool.originX = e.clientX - getCursorXoffset();
 		tool.originY = e.clientY - getCursorYoffset();
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
 	}
-	
+
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
 		painting = true;
 	}
-	
+
 	this.mouseOut = function(e) {
 		//Adjust endX and endY to map to canvas context
 		// push new line unto drawables?
 		painting = false;
 	}
-	
+
 }
 
 window.onload=function(){

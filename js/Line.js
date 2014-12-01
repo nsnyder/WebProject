@@ -19,6 +19,7 @@ function drawLine(){
 
 //Line Object
 function Line(cnv){
+	this.type = "Line";
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.strokeWidth = 2;
@@ -26,13 +27,13 @@ function Line(cnv){
 	//Record of initial mouse click
 	this.originX;
 	this.originY;
-	
+
 	//Record of mouse release
 	this.endX;
 	this.endY;
-	
+
 	//Event listener function on mouse down
-	this.mouseDown = function(e) {	
+	this.mouseDown = function(e) {
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		pos = getMousePos(canvas,e);
 		tool.originX = pos.x;
@@ -41,25 +42,25 @@ function Line(cnv){
 		painting = true;
 		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
-	
+
 	this.mouseHold = function(e) {
 		// update endx and endy
 		// constantly redraw canvas so that preview can be seen
-		
+
 		//Adjust endX and endY to map to canvas context
 		pos = getMousePos(canvas,e);
 		tool.endX = pos.x;
 		tool.endY = pos.y;
-		
+
 		render(canvas);
 		tool.draw();
-		
+
 		painting = true;
 	}
-	
+
 	//Event listener function called on mouse up
 	this.mouseRelease = function(e) {
-		
+
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
@@ -75,7 +76,7 @@ function Line(cnv){
 		// push new line unto drawables?
 		painting = false;
 	}
-	
+
 	this.mouseOut = function(e) {
 		//Adjust endX and endY to map to canvas context
 		// push new line unto drawables?

@@ -34,8 +34,8 @@ function updateColorDisplay() {
 }
 
 window.onload=function(){
-	
-	
+
+
 	canvas = document.getElementById("mainCanvas");
 	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("active");
@@ -47,14 +47,14 @@ window.onload=function(){
 	for(var i=0;i<colors.length;++i) {
 		colors[i].addEventListener("click",setColor);
 	}
-	
+
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
-	
+
 }
 
 function setTool() {
@@ -85,13 +85,13 @@ function setTool() {
 		} else {
 			wdth = thicknessBtn.value;
 		}
-		
+
 	} catch (e) {
 		clr = "#000000";
 		fclr = "rgba(0, 0, 0, 0.0)";
 		wdth = thicknessBtn.value;
 	}
-	
+
 	var classes = this.classList;
 	try {
 		canvas.removeEventListener("mousedown", tool.mouseDown);
@@ -151,6 +151,21 @@ function render(cnv) {
 	for(i=0;i<drawables.length;++i) {
 		drawables[i].draw(cnv);
 	}
+}
+
+
+function updateAndSave() {
+	drawables.push(tool);
+	var newData = { drawables: drawables, redoDrawables: redoDrawables };
+	for(i=0;i<newData.drawables.length;++i) {
+		newData.drawables[i].canvas = undefined;
+	}
+	for(i=0;i<newData.redoDrawables.length;++i) {
+		newData.redoDrawables[i].canvas = undefined;
+	}
+	var dataField = document.getElementById("canvasData");
+	dataField.value = JSON.stringify(newData);
+	document.getElementById("saveCanvas").submit();
 }
 
 // StackOverflow, you da best <3

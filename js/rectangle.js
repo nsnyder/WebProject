@@ -55,6 +55,7 @@ function drawRectangle(){
 
 //Rectangle Object
 function Rectangle(cnv){
+	this.type = "Rectangle";
 	this.canvas = cnv;
 	this.color = "#000000";
 	this.fillColor = "rgba(0, 0, 0, 0.0)";
@@ -73,14 +74,14 @@ function Rectangle(cnv){
 	this.height;
 	this.width;
 	//Event listener function on mouse down
-	this.mouseDown = function(e) {	
+	this.mouseDown = function(e) {
 		//Adjust originX and originY so that it maps in accordance with canvas context
 		pos = getMousePos(canvas,e);
 		tool.originX = pos.x;
 		tool.originY = pos.y;
 		console.log("origin: X: " + tool.originX + " Y: " + tool.originY);
 		painting = true;
-		
+
 		canvas = document.getElementById("mainCanvas");
 		canvas.addEventListener("mousemove", tool.mouseHold);
 	}
@@ -89,7 +90,7 @@ function Rectangle(cnv){
 		canvas = document.getElementById("mainCanvas");
 		// push new rectangle unto drawables?
 		painting = false;
-		
+
 		canvas.removeEventListener("mousedown", tool.mouseDown);
 		canvas.removeEventListener("mouseup", tool.mouseRelease);
 		canvas.removeEventListener("mousemove", tool.mouseHold);
@@ -108,14 +109,14 @@ function Rectangle(cnv){
 	this.mouseHold = function(e) {
 		painting = true;
 		canvas = document.getElementById("mainCanvas");
-		
+
 		//Adjust endX and endY to map to canvas context
 		pos = getMousePos(canvas,e);
 		tool.endX = pos.x;
 		tool.endY = pos.y;
 		render(canvas);
 		tool.draw();
-		
+
 	}
 	this.mouseOut = function(e) {
 		painting = false;

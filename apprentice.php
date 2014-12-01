@@ -2,10 +2,10 @@
 <html>
 <head lang="en">
    <meta charset="utf-8">
-   <title>Artist</title>
+   <title>Apprentice</title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
-   <link rel="stylesheet" type="text/css" href="css/artist.css">
-   <script type="text/javascript" src="js/artistcanvas.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/apprentice.css">
+   <script type="text/javascript" src="js/canvas.js"></script>
    <script type="text/javascript" src="js/rectangle.js"></script>
    <script type="text/javascript" src="js/circle.js"></script>
    <script type="text/javascript" src="js/Line.js"></script>
@@ -13,20 +13,20 @@
    <script type="text/javascript" src="js/stack.js"></script>
 </head>
 <body>
-<nav>
+<nav id="MainNav">
 	<a href="/WebProject/artist.html" title="Home">Home</a>
-	<input type="text" id="buddySearchBar" placeholder="Find a buddy" />
+	<input type="text" id="buddySearchBar" placeholder="Find a buddy"/>
 	<a href="/WebProject/buddies.html" title="Buddies List">Buddies</a>
 	<a href="#" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
-<div id="Frame">
-	<canvas id="mainCanvas" width="480" height="320">
+	<div id="Frame">
+		<canvas id="mainCanvas" width="480" height="320">
 		</canvas>
-</div>
-<table id="Toolbox">
+	</div>
+	<table id="Toolbox">
 		<tr>
-			<th colspan=2 class="tools">Toolbox</th> 
+			<th colspan=2 class="tools">Toolbox</th>
 		</tr>
 	<tbody>
 		<tr>
@@ -102,32 +102,7 @@
 		</tr>
 		</tbody>
 	</table>
-<table id="Layers">
-    <thead><tr><th colspan=2 class="tools">Layers</th></tr></thead>
-	<tbody>
-  <tr>
-    <td class="tools"><input id="l1" type="checkbox" checked /></td>
-    <td class="tools layer layer1 selected">Layer 1</td>
-  </tr>
-  <tr>
-    <td class="tools"><input id="l2" type="checkbox" checked /></td>
-    <td class="tools layer layer2">Layer 2</td>
-  </tr>
-  <tr>
-    <td class="tools"><input id="l3" type="checkbox" checked /></td>
-    <td class="tools layer layer3">Layer 3</td>
-  </tr>
-  <tr>
-    <td class="tools"><input id="l4" type="checkbox" checked /></td>
-    <td class="tools layer layer4">Layer 4</td>
-  </tr>
-  <tr>
-    <td class="tools"><input id="l5" type="checkbox" checked /></td>
-    <td class="tools layer layer5">Layer 5</td>
-  </tr>
-  </tbody>
-</table>
-<table id="ColorPallet">
+	<table id="ColorPallet">
 		<tr> <th class="pallet" colspan=4>Color Pallet</th> </tr>
 		<tbody>
 		<tr class="pallet">
@@ -162,26 +137,29 @@
 		</tr>
 		</tbody>
 
-</table>
-<div id="ActionBar">
-	<ul id="Share" class="action">
-		<li class="horizontal">Share:</li>
-		<li class="horizontal"><img onclick="" src="images/social/facebook_16.png" alt="facebook"/></li>
-		<li class="horizontal"><img onclick="" src="images/social/flickr_16.png" alt="flickr"/></li>
-		<li class="horizontal"><img onclick="" src="images/social/google_plus_16.png" alt="google+"/></li>
-		<li class="horizontal"><img onclick="" src="images/social/twitter_16.png" alt="twitter"/></li>
-		<li class="horizontal"><img onclick="" src="images/social/email_16.png" alt="email"/></li>
-	</ul>
-	<ul id="UndoRedo" class="action">
-		<li class="horizontal"><button id="Undo" onclick="">Undo</button></li>
-		<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
-	</ul>
-	<ul id="File" class="action">
-		<li class="horizontal"><button onclick="">Save</button></li>
-		<li class="horizontal"><button onclick="">Download</button></li>
-		<li class="horizontal"><button onclick="">Upload</button></li>
-	</ul>
-</div>
+	</table>
+	<div id="ActionBar">
+		<ul id="Share" class="action">
+			<li class="horizontal">Share:</li>
+			<li class="horizontal"><img onclick="" src="images/social/facebook_16.png" alt="facebook"/></li>
+			<li class="horizontal"><img onclick="" src="images/social/flickr_16.png" alt="flickr"/></li>
+			<li class="horizontal"><img onclick="" src="images/social/google_plus_16.png" alt="google+"/></li>
+			<li class="horizontal"><img onclick="" src="images/social/twitter_16.png" alt="twitter"/></li>
+			<li class="horizontal"><img onclick="" src="images/social/email_16.png" alt="email"/></li>
+		</ul>
+		<ul id="UndoRedo" class="action">
+			<li class="horizontal"><button id="Undo" onclick="">Undo</button></li>
+			<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
+		</ul>
+		<ul id="File" class="action">
+			<form name="saveCanvas" id="saveCanvas" action="saveApprentice.php" method="post" style="display: inline;">
+        <li class="horizontal"><button onclick="updateAndSave()">Save</button></li>
+        <input name="canvasData" id="canvasData" type="hidden">
+      </form>
+			<li class="horizontal"><button onclick="">Download</button></li>
+			<li class="horizontal"><button onclick="">Upload</button></li>
+		</ul>
+	</div>
 </div>
 </body>
 </html>
