@@ -72,7 +72,7 @@ window.onload=function(){
 
 
 	document.getElementById("l0").addEventListener("change",function() { render(canvas); } );
-	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l1").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l3").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l4").addEventListener("change",function() { render(canvas); } );
