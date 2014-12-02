@@ -35,7 +35,8 @@
 				header('Location:'.$level.'.php');
 			}
 			else{
-				//notify that the password does not match
+				echo "<script type='text/javascript'>alert('Username or password was incorrect!');</script>";
+				header('Location: login.php');
 			}
 		}
 	}
