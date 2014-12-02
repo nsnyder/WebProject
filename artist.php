@@ -6,6 +6,7 @@
 <head lang="en">
    <meta charset="utf-8">
    <title>Artist</title>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/artist.css">
    <script type="text/javascript" src="js/artistcanvas.js"></script>
@@ -14,13 +15,12 @@
    <script type="text/javascript" src="js/Line.js"></script>
    <script type="text/javascript" src="js/brush.js"></script>
    <script type="text/javascript" src="js/stack.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 <nav>
-	<a href="/WebProject/artist.html" title="Home">Home</a>
+	<a href="/WebProject/artist.php" title="Home">Home</a>
 	<input type="text" id="buddySearchBar" placeholder="Find a buddy" />
-	<a href="/WebProject/buddies.html" title="Buddies List">Buddies</a>
+	<a href="/WebProject/buddies.php" title="Buddies List">Buddies</a>
 	<a href="#" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
