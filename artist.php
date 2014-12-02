@@ -23,7 +23,7 @@
 	<?php echo '<a href="/WebProject/'.$level.'.php" title="Home">Home</a>' ?>
 	<input type="text" id="buddySearchBar" placeholder="Find a buddy" />
 	<a href="/WebProject/buddies.php" title="Buddies List">Buddies</a>
-	<a href="#" title="Logout">Logout</a>
+	<a href="login.php" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
 <div id="Frame">
