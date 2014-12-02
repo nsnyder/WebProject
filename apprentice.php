@@ -1,7 +1,10 @@
 <?php
-session_start();
-$u = $_SESSION['user'];
-$level = $u['userLevel'];
+  session_start();
+  $u = $_SESSION['user'];
+  $level = $u['userLevel'];
+  if(!isset($_SESSION['user'])) {
+    header('Location: login.php');
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,10 +28,16 @@ $level = $u['userLevel'];
 	<a href="logout.php" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
-	<div id="Frame">
-		<canvas id="mainCanvas" width="480" height="320">
-		</canvas>
-	</div>
+  <div id="frameHolder">
+    <?php if(isset($_GET['alert']) && $_GET['alert'] == "saved") { ?>
+      <div class="alert">Your creation has been saved!</div>
+
+    <?php } ?>
+  	<div id="Frame">
+  		<canvas id="mainCanvas" width="480" height="320">
+  		</canvas>
+  	</div>
+  </div>
 	<table id="Toolbox">
 		<tr>
 			<th colspan=2 class="tools">Toolbox</th>
