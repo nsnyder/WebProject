@@ -1,5 +1,7 @@
 <?php
 session_start();
+$u = $_SESSION['user'];
+$level = $u['userLevel'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,9 +19,9 @@ session_start();
 </head>
 <body>
 <nav id="MainNav">
-	<a href="/WebProject/artist.html" title="Home">Home</a>
+	<?php echo '<a href="/WebProject/'.$level.'.php" title="Home">Home</a>' ?>
 	<input type="text" id="buddySearchBar" placeholder="Find a buddy"/>
-	<a href="/WebProject/buddies.html" title="Buddies List">Buddies</a>
+	<a href="/WebProject/buddies.php" title="Buddies List">Buddies</a>
 	<a href="#" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
