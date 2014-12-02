@@ -12,10 +12,10 @@
 <section class="main">
 <img src="images/GrouPaint%20working%202.png" title="GrouPaint" alt="GrouPaint" />
 <h2>Please log in </h2>
-<form action = "someAction.php" method = "get">
-<input type = "text" name = "username" placeholder="User Name">
-<input type = "password" name = "pwd" placeholder="Password">
-<button id="submitBtn" type = "submit" value = "Submit">Log In</button>
+<form action = "signinHandler.php" method = "post">
+	<input type = "text" name = "username" placeholder="User Name">
+	<input type = "password" name = "pwd" placeholder="Password">
+	<button id="submitBtn" type = "submit" value = "Submit">Log In</button>
 </form>
 </section>
 <section>

@@ -30,15 +30,13 @@
 						$level = $lvl;
 					}
 				}
+				//set session user and send user to right page
 				$_SESSION['user'] = array( "username" => $_POST['username'], "userLevel" => $level);
 				header('Location:'.$level.'.php');
-				//set session user and send them to correct page
 			}
 			else{
 				//notify that the password does not match
 			}
 		}
 	}
-	$_SESSION['user'] = array( "username" => $_POST['username'], "usertype" => 
-	header('Location:'.$type.'.php');
 ?>
