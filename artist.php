@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -11,6 +14,7 @@
    <script type="text/javascript" src="js/Line.js"></script>
    <script type="text/javascript" src="js/brush.js"></script>
    <script type="text/javascript" src="js/stack.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 <nav>
@@ -106,24 +110,24 @@
     <thead><tr><th colspan=2 class="tools">Layers</th></tr></thead>
 	<tbody>
   <tr>
+    <td class="tools"><input id="l0" type="checkbox" checked /></td>
+    <td class="tools layer selected">Layer 1<input type="hidden" value ="0"></td>
+  </tr>
+  <tr>
     <td class="tools"><input id="l1" type="checkbox" checked /></td>
-    <td class="tools layer layer1 selected">Layer 1<input type="hidden" value ="1"></td>
+    <td class="tools layer">Layer 2<input type="hidden" value ="1"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l2" type="checkbox" checked /></td>
-    <td class="tools layer layer2">Layer 2<input type="hidden" value ="2"></td>
+    <td class="tools layer">Layer 3<input type="hidden" value ="2"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l3" type="checkbox" checked /></td>
-    <td class="tools layer layer3">Layer 3<input type="hidden" value ="3"></td>
+    <td class="tools layer">Layer 4<input type="hidden" value ="3"></td>
   </tr>
   <tr>
     <td class="tools"><input id="l4" type="checkbox" checked /></td>
-    <td class="tools layer layer4">Layer 4<input type="hidden" value ="4"></td>
-  </tr>
-  <tr>
-    <td class="tools"><input id="l5" type="checkbox" checked /></td>
-    <td class="tools layer layer5">Layer 5<input type="hidden" value ="5"></td>
+    <td class="tools layer">Layer 5<input type="hidden" value ="4"></td>
   </tr>
   </tbody>
 </table>
@@ -177,9 +181,9 @@
 		<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 	</ul>
 	<ul id="File" class="action">
-    <form name="saveCanvas" action="saveApprentice.php">
-  		<li class="horizontal"><button onclick="">Save</button></li>
-      <input name="canvasData" type="hidden">
+    <form name="saveCanvas" id="saveCanvas" action="saveArtist.php" method="post" style="display: inline;">
+  		<li class="horizontal"><button onclick="updateAndSave()">Save</button></li>
+      <input name="canvasData" id="canvasData" type="hidden" value="<?php if(isset($_SESSION['artistCanvas'])) { echo $_SESSION['artistCanvas']; } ?>">
     </form>
 		<li class="horizontal"><button onclick="">Download</button></li>
 		<li class="horizontal"><button onclick="">Upload</button></li>

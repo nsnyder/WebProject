@@ -2,20 +2,13 @@
 var canvas;
 //Tells when user is holding down mouse
 var painting = false;
-var drawables1 = [];
-var redoDrawables1 = [];
-var drawables2 = [];
-var redoDrawables2 = [];
-var drawables3 = [];
-var redoDrawables3 = [];
-var drawables4 = [];
-var redoDrawables4 = [];
-var drawables5 = [];
-var redoDrawables5 = [];
 var drawables = [];
+var drawablesArray = [];
 var redoDrawables = [];
+var redoDrawablesArray = [];
 var tool;
 var layerN;
+var layerCount = 5;
 
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
@@ -45,9 +38,14 @@ function updateColorDisplay() {
 }
 
 window.onload=function(){
-	layerN = 1;
-
+	layerN = 0;
+	for(var i=0;i<layerCount;++i) {
+		drawablesArray.push(new Array());
+		redoDrawablesArray.push(new Array());
+	}
 	canvas = document.getElementById("mainCanvas");
+	loadSaved(canvas);
+
 	// Add event listeners to change tools
 	var tools = document.getElementsByClassName("active");
 	for(var i=0;i<tools.length;++i) {
@@ -73,11 +71,11 @@ window.onload=function(){
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
 
 
-	document.getElementById("l1").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l0").addEventListener("change",function() { render(canvas); } );
+	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l2").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l3").addEventListener("change",function() { render(canvas); } );
 	document.getElementById("l4").addEventListener("change",function() { render(canvas); } );
-	document.getElementById("l5").addEventListener("change",function() { render(canvas); } );
 }
 function setLayer() {
 	var layers = document.getElementsByClassName("layer");
@@ -85,57 +83,13 @@ function setLayer() {
 		layers[i].className = layers[i].className.replace( /(?:^|\s)selected(?!\S)/g , '' )
 	}
 	this.className += " selected";
-	if(layerN==1) {
-		drawables[0] = drawables;
-		redoDrawables[0] = redoDrawables;
-	}
-	if(layerN==2) {
-		drawables[1] = drawables;
-		redoDrawables[1] = redoDrawables;
-	}
-	if(layerN==3) {
-		drawables3 = drawables;
-		redoDrawables3 = redoDrawables;
-	}
-	if(layerN==4) {
-		drawables4 = drawables;
-		redoDrawables4 = redoDrawables;
-	}
-	if(layerN==5) {
-		drawables5 = drawables;
-		redoDrawables5 = redoDrawables;
-	}
-	var classes = this.classList;
-	for(i=0;i<classes.length;++i) {
 
-	var lastChar = classes[i].substr(classes[i].length - 1);
+	drawablesArray[layerN] = drawables;
+	redoDrawablesArray[layerN] = redoDrawables;
 
-	if(lastChar == "1") {
-		drawables = drawables1;
-		redoDrawables = redoDrawables1;
-		layerN = 1;
-	}
-	if(lastChar == "2") {
-		drawables = drawables2;
-		redoDrawables = redoDrawables2;
-		layerN = 2;
-	}
-	if(lastChar == "3") {
-		drawables = drawables3;
-		redoDrawables = redoDrawables3;
-		layerN = 3;
-	}
-	if(lastChar == "4") {
-		drawables = drawables4;
-		redoDrawables = redoDrawables4;
-		layerN = 4;
-	}
-	if(lastChar == "5") {
-		drawables = drawables5;
-		redoDrawables = redoDrawables5;
-		layerN = 5;
-	}
-	}
+	layerN = parseInt($(this).children('input')[0].value,10);
+	drawables = drawablesArray[layerN];
+	redoDrawables = redoDrawablesArray[layerN];
 
 	render(canvas);
 	updateColorDisplay();
@@ -233,51 +187,89 @@ function render(cnv) {
 	ctx = cnv.getContext("2d");
 	ctx.clearRect(0,0,cnv.width,cnv.height);
 
-
-
-	if(layerN==1) {
-		drawables = drawables1;
-	}
-	if(layerN==2) {
-		drawables = drawables2;
-	}
-	if(layerN==3) {
-		drawables = drawables3;
-	}
-	if(layerN==4) {
-		drawables = drawables4;
-	}
-	if(layerN==5) {
-		drawables = drawables5;
+	drawables = drawablesArray[layerN];
+	for(var i=0;i<drawablesArray.length;++i) {
+		if(document.getElementById("l"+i).checked) {
+			for(j=0;j<drawablesArray[i].length;++j) {
+				drawablesArray[i][j].draw(cnv);
+			}
+		}
 	}
 
+}
 
+function loadSaved(cnv) {
+	var dataField = document.getElementById("canvasData");
+	if(dataField.value != "") {
+		var newData = JSON.parse(decodeURIComponent(dataField.value));
+		for(i=0;i<newData.drawablesArray.length;++i) {
+			for(j=0;j<newData.drawablesArray[i].length;++j) {
+				if(newData.drawablesArray[i][j].type == "Text") {
+					drawablesArray[i].push(new Text(cnv,newData.drawablesArray[i][j]));
+				}
+				if(newData.drawablesArray[i][j].type == "Brush") {
+					drawablesArray[i].push(new Brush(cnv,newData.drawablesArray[i][j]));
+				}
+				if(newData.drawablesArray[i][j].type == "Rectangle") {
+					drawablesArray[i].push(new Rectangle(cnv,newData.drawablesArray[i][j]));
+				}
+				if(newData.drawablesArray[i][j].type == "Circle") {
+					drawablesArray[i].push(new Circle(cnv,newData.drawablesArray[i][j]));
+				}
+				if(newData.drawablesArray[i][j].type == "Line") {
+					drawablesArray[i].push(new Line(cnv,newData.drawablesArray[i][j]));
+				}
+			}
+		}
+		for(i=0;i<newData.redoDrawablesArray.length;++i) {
+			for(j=0;j<newData.redoDrawablesArray[i].length;++j) {
+				if(newData.redoDrawablesArray[i][j].type == "Text") {
+					redoDrawablesArray[i].push(new Text(cnv,newData.redoDrawablesArray[i][j]));
+				}
+				if(newData.redoDrawablesArray[i][j].type == "Brush") {
+					redoDrawablesArray[i].push(new Brush(cnv,newData.redoDrawablesArray[i][j]));
+				}
+				if(newData.redoDrawablesArray[i][j].type == "Rectangle") {
+					redoDrawablesArray[i].push(new Rectangle(cnv,newData.redoDrawablesArray[i][j]));
+				}
+				if(newData.redoDrawablesArray[i][j].type == "Circle") {
+					redoDrawablesArray[i].push(new Circle(cnv,newData.redoDrawablesArray[i][j]));
+				}
+				if(newData.redoDrawablesArray[i][j].type == "Line") {
+					redoDrawablesArray[i].push(new Line(cnv,newData.redoDrawablesArray[i][j]));
+				}
+			}
+		}
+	}
+	render(cnv);
+}
 
-	if(document.getElementById("l1").checked) {
-	for(i=0;i<drawables1.length;++i) {
-		drawables1[i].draw(cnv);
+function updateAndSave() {
+	drawables.push(tool);
+	drawablesArray[layerN] = drawables;
+	redoDrawablesArray[layerN] = redoDrawables;
+	var newData = { drawablesArray: drawablesArray, redoDrawablesArray: redoDrawablesArray };
+	for(i=0;i<newData.drawablesArray.length;++i) {
+		for(j=0;j<newData.drawablesArray[i].length;++j) {
+			if(newData.drawablesArray[i][j]==undefined) {
+				newData.drawablesArray[i].length = j;
+			} else {
+				newData.drawablesArray[i][j].canvas = undefined;
+			}
+		}
 	}
+	for(i=0;i<newData.redoDrawablesArray.length;++i) {
+		for(j=0;j<newData.redoDrawablesArray[i].length;++j) {
+			if(newData.redoDrawables[i]==undefined) {
+				newData.redoDrawablesArray[i].length = j;
+			} else {
+				newData.redoDrawablesArray[i][j].canvas = undefined;
+			}
+		}
 	}
-	if(document.getElementById("l2").checked) {
-	for(i=0;i<drawables2.length;++i) {
-		drawables2[i].draw(cnv);
-	}
-	}
-	if(document.getElementById("l3").checked) {
-	for(i=0;i<drawables3.length;++i) {
-		drawables3[i].draw(cnv);
-	}
-	}
-	if(document.getElementById("l4").checked) {
-	for(i=0;i<drawables4.length;++i) {
-		drawables4[i].draw(cnv);
-	}
-	}
-	if(document.getElementById("l5").checked) {
-	for(i=0;i<drawables5.length;++i) {
-		drawables5[i].draw(cnv);
-	}
-	}
+	var dataField = document.getElementById("canvasData");
+	dataField.value = encodeURIComponent(JSON.stringify(newData));
+	document.getElementById("saveCanvas").submit();
 }
 
 // StackOverflow, you da best <3
