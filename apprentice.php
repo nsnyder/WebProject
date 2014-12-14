@@ -146,6 +146,10 @@
       </form>
 			<li class="horizontal"><button onclick="">Download</button></li>
 		</ul>
+		<ul id="FriendAction" class="action">
+			<li class="horizontal"><button onclick="">Add Friend</button></li>
+			<li class="horizontal"><button onclick="">Remove Friend</button></li>
+		</ul>
 	</div>
 </div>
 </body>

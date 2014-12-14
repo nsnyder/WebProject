@@ -143,18 +143,23 @@ ul.action{
 	background-color: #EBC2FF;
 }
 #Share{
-	margin-right: 2em;
+	margin-right: 1.5em;
 	width: 12em;
 	display: inline;
 }
 #UndoRedo{
-	margin-right: 2em;
+	margin-right: 1.5em;
 	width: 10em;
 	display: inline;
 }
 #File{
-	margin-right: 2em;
+	margin-right: 1.5em;
 	width: 20em;
+	display: inline;
+}
+#FriendAction{
+	margin-right: 0em;
+	width: 30em;
 	display: inline;
 }
 li.horizontal{
