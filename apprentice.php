@@ -47,32 +47,8 @@
 			<td class="tools active brush">
 				<img class="tools" onclick="" src="images/paint_brush_icon.png" alt="brush">
 			</td>
-			<td class="tools eraser">
-				<img class="tools" onclick="" src="images/eraser_icon.png" alt="eraser">
-			</td>
-		</tr>
-		<tr>
-			<td class="tools picker">
-				<img class="tools" onclick="" src="images/color_picker_icon2.png" alt="dropper">
-			</td>
-			<td class="tools text">
-				<img class="tools" onclick="" src="images/text_icon.png" alt="text">
-			</td>
-		</tr>
-		<tr>
 			<td class="tools active line">
 				<img class="tools" onclick="" src="images/line.png" alt="line">
-			</td>
-			<td class="tools bucket">
-				<img class="tools" onclick="" src="images/paint_bucket_icon.png" alt="fill">
-			</td>
-		</tr>
-		<tr>
-			<td class="tools select">
-				<img class="tools" onclick="" src="images/select_icon.png" alt="select">
-			</td>
-			<td class="tools pan">
-				<img class="tools" onclick="" src="images/pan_icon.png" alt="pan">
 			</td>
 		</tr>
 		<tr>
@@ -156,8 +132,6 @@
 		<ul id="Share" class="action">
 			<li class="horizontal">Share:</li>
 			<li class="horizontal"><img onclick="" src="images/social/facebook_16.png" alt="facebook"/></li>
-			<li class="horizontal"><img onclick="" src="images/social/flickr_16.png" alt="flickr"/></li>
-			<li class="horizontal"><img onclick="" src="images/social/google_plus_16.png" alt="google+"/></li>
 			<li class="horizontal"><img onclick="" src="images/social/twitter_16.png" alt="twitter"/></li>
 			<li class="horizontal"><img onclick="" src="images/social/email_16.png" alt="email"/></li>
 		</ul>
@@ -171,7 +145,6 @@
         <input name="canvasData" id="canvasData" type="hidden" value="<?php if(isset($_SESSION['apprenticeCanvas'])) { echo $_SESSION['apprenticeCanvas']; } ?>">
       </form>
 			<li class="horizontal"><button onclick="">Download</button></li>
-			<li class="horizontal"><button onclick="">Upload</button></li>
 		</ul>
 	</div>
 </div>
