@@ -1,4 +1,5 @@
 var usernamemessage;
+var username;
 var	passmessage;
 var pass;
 var confpass;	
@@ -41,6 +42,9 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function checkusername()
+{
+}
 
 function checkpass()
 {
