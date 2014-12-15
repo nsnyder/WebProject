@@ -119,12 +119,35 @@ EOL;
     return $result;
   }
 
-  if(authorized("nsnyder","nsnyder"))
-    echo "Authorized<br>";
+  function login($username, $password) {
+    $password = sha1($password);
+    $pdo = connect();
+    $valid = false;
 
-  if(authorized("mike","stephen")) echo "They are buddies<br>";
-  if(authorized("stephen","mike")) echo "They are buddies<br>";
-  listBuddies("stephen123");
+    $stmt = $pdo->prepare('select count(*) from accounts where (username = :username AND passphrase = :password)');
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password', $password);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    print_r($result);
+    if($result[0][0]==1) {
+      echo "valid login";
+    } else {
+      echo "invalid login";
+    }
+
+
+    disconnect($pdo);
+  }
+
+
+  login("Nathan","SnyderPretzels");
+  //if(authorized("nsnyder","nsnyder"))
+  //  echo "Authorized<br>";
+
+  //if(authorized("mike","stephen")) echo "They are buddies<br>";
+  //if(authorized("stephen","mike")) echo "They are buddies<br>";
+  //listBuddies("stephen123");
   //rejectFriends("mike","stephen");
   //if(authorized("mike","stephen")) echo "They are buddies<br>";
 
