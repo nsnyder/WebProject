@@ -5,7 +5,11 @@
   $user = $_SESSION['user'];
   $level = getLevel($user);
   if("apprentice" != getLevel($_REQUEST['id'])) {
-    header('Location: ' . getLevel($_REQUEST['id']) . '.php?id=' . $_REQUEST['id']);
+    if(getLevel($_REQUEST['id'])!=""){
+      header('Location: ' . getLevel($_REQUEST['id']) . '.php?id=' . $_REQUEST['id']);
+    } else {
+      header('Location: ' . getLevel($user) . '.php?id=' . $user);
+    }
   }
   if(!$authorized && ($_REQUEST['id'] == "" || !isset($_REQUEST['id']))) {
     header('Location: ' . getLevel($user) . '.php?id=' . $user);
@@ -16,15 +20,17 @@
 <head lang="en">
    <meta charset="utf-8">
    <title>Apprentice</title>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/apprentice.css">
+   <?php if($authorized) { ?>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <script type="text/javascript" src="js/canvas.js"></script>
    <script type="text/javascript" src="js/rectangle.js"></script>
    <script type="text/javascript" src="js/circle.js"></script>
    <script type="text/javascript" src="js/Line.js"></script>
    <script type="text/javascript" src="js/brush.js"></script>
    <script type="text/javascript" src="js/stack.js"></script>
+   <?php } ?>
 </head>
 <body>
 <nav id="MainNav">
@@ -35,6 +41,7 @@
 </nav>
 <div id="MainContent">
   <div id="name"><?php echo getName($_REQUEST['id']); ?></div>
+  <?php if($authorized) { ?>
   <div id="frameHolder">
     <?php if(isset($_GET['alert']) && $_GET['alert'] == "saved") { ?>
       <div class="alert">Your creation has been saved!</div>
@@ -97,6 +104,11 @@
 				<div id="demoColor"></div>
 			</td>
 		</tr>
+    <tr>
+      <td colspan="2">
+        <button id="clearButton">Clear Canvas</button>
+      </td>
+    </tr>
 		</tbody>
 	</table>
 	<table id="ColorPallet">
@@ -135,6 +147,7 @@
 		</tbody>
 
 	</table>
+  <?php } ?>
 	<div id="ActionBar">
 		<ul id="Share" class="action">
 			<li class="horizontal">Share:</li>
@@ -149,10 +162,40 @@
 		<ul id="File" class="action">
 			<li class="horizontal"><button onclick="">Download</button></li>
 		</ul>
-		<ul id="FriendAction" class="action">
-			<li class="horizontal"><button onclick="">Add Friend</button></li>
-			<li class="horizontal"><button onclick="">Remove Friend</button></li>
-		</ul>
+
+    <?php if($_REQUEST['id']!=$user) { ?>
+      <ul id="FriendAction" class="action">
+        <?php
+        $buttonText = "Error";
+        $url = "";
+        $class = "";
+        switch (getFriendState($user, $_REQUEST['id'])) {
+          case NOT_FRIENDS:
+          $buttonText = "Add Friend";
+          $class = "normal";
+          $url = "friendAction.php?action=add&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+          break;
+          case FRIENDS:
+          $buttonText = "Remove Friend";
+          $class = "remove";
+          $url = "addFriend.php?action=remove&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+          break;
+          case WAITING_FOR_YOU:
+          $buttonText = "Confirm Friend Request";
+          $class = "confirm";
+          $url = "addFriend.php?action=confirm&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+          break;
+          case WAITING_FOR_THEM:
+          $buttonText = "Request Sent";
+          $class = "disabled";
+          $url = "#";
+          break;
+        }
+        echo '<li class="' . $class . ' horizontal"><a href="' . $url . '">' . $buttonText . '</a></li>';
+
+        ?>
+      </ul>
+      <?php } ?>
 	</div>
 </div>
 </body>

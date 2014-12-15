@@ -6,6 +6,11 @@
     $dbname = $username;
     $port = "3306";
 
+    if(!defined("FRIENDS")) define("FRIENDS", 0);
+    if(!defined("NOT_FRIENDS")) define("NOT_FRIENDS", 1);
+    if(!defined("WAITING_FOR_YOU")) define("WAITING_FOR_YOU", 2);
+    if(!defined("WAITING_FOR_THEM")) define("WAITING_FOR_THEM", 3);
+
     try {
       // Create connection
       $pdo = new PDO('mysql:host=' . $servername . ';port=' . $port . ';dbname=' . $dbname, $username, $password);
@@ -210,6 +215,29 @@ EOL;
     }
   }
 
+  function getFriendState($viewer, $viewee) {
+    $pdo = connect();
+    $stmt = $pdo->prepare("SELECT * FROM buddies WHERE (friend = :username AND username = :id) OR (username = :username AND friend = :id)");
+    $stmt->bindParam(':username', $viewer);
+    $stmt->bindParam(':id', $viewee);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll();
+    if(!empty($result)) {
+      if($result[0]['accepted']) {
+        return FRIENDS;
+      } elseif ($result[0]['username']==$viewer) {
+        return WAITING_ON_THEM;
+      } elseif ($result[0]['friend']==$viewer) {
+        return WAITING_ON_YOU;
+      } else {
+        return NOT_FRIENDS;
+      }
+    } else {
+      return NOT_FRIENDS;
+    }
+  }
+
 
   //login("Nathan","SnyderPretzels");
   //if(authorized("nsnyder","nsnyder"))
@@ -222,6 +250,7 @@ EOL;
   //if(authorized("mike","stephen")) echo "They are buddies<br>";
 
   //test();
+  //getFriendState("nathan", "stephen123");
 
 
 

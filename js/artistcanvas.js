@@ -80,11 +80,13 @@ window.onload=function(){
 	var saveBtn = document.getElementById("updateAndSave");
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
+	var clearBtn = document.getElementById("clearButton");
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
 	canvas.addEventListener("mouseup",updateAndSave);
+	clearBtn.addEventListener("click",clear);
 
 
 	document.getElementById("l0").addEventListener("change",function() { render(canvas); } );
@@ -272,7 +274,11 @@ function loadSaved(cnv) {
 }
 
 function updateAndSave(event) {
-	event.preventDefault();
+	try {
+		event.preventDefault();
+	} catch(e) {
+
+	}
 	drawables.push(tool);
 	drawablesArray[layerN] = drawables;
 	redoDrawablesArray[layerN] = redoDrawables;
@@ -327,6 +333,19 @@ function updateAndSave(event) {
 		}
 		render(canvas);
 	});
+}
+
+function clear() {
+	for(i=0;i<drawablesArray.length;++i) {
+		drawablesArray[i] = [];
+	}
+	for(i=0;i<redoDrawablesArray.length;++i) {
+		redoDrawablesArray[i] = [];
+	}
+	drawables = [];
+	redoDrawables = [];
+	render(canvas);
+	updateAndSave();
 }
 
 // StackOverflow, you da best <3

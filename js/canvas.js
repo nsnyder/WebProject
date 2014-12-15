@@ -67,10 +67,12 @@ window.onload=function(){
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
 	var thicknessBtn = document.getElementById("thick");
+	var clearBtn = document.getElementById("clearButton");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
 	canvas.addEventListener("mouseup",updateAndSave);
+	clearBtn.addEventListener("click",clear);
 
 }
 
@@ -270,6 +272,13 @@ function updateAndSave() {
 		}
 		render(canvas);
 	});
+}
+
+function clear() {
+	drawables = [];
+	redoDrawables = [];
+	render(canvas);
+	updateAndSave();
 }
 
 // StackOverflow, you da best <3
