@@ -172,45 +172,57 @@ function render(cnv) {
 
 
 function loadSaved(cnv) {
-	var dataField = document.getElementById("canvasData");
-	if(dataField.value != "") {
-		var newData = JSON.parse(decodeURIComponent(dataField.value));
-		for(i=0;i<newData.drawables.length;++i) {
-			if(newData.drawables[i].type == "Text") {
-				drawables.push(new Text(cnv,newData.drawables[i]));
+	$.ajax({
+		type: "GET",
+		url: "load.php",
+		data: { id:$.QueryString["id"] }
+	})
+	.done(function() {
+		//alert( "success" );
+	})
+	.fail(function() {
+		//alert( "error" );
+	}).always(function(data) {
+		if(data != "") {
+			var newData = JSON.parse(decodeURIComponent(data));
+			for(i=0;i<newData.drawables.length;++i) {
+				if(newData.drawables[i].type == "Text") {
+					drawables.push(new Text(cnv,newData.drawables[i]));
+				}
+				if(newData.drawables[i].type == "Brush") {
+					drawables.push(new Brush(cnv,newData.drawables[i]));
+				}
+				if(newData.drawables[i].type == "Rectangle") {
+					drawables.push(new Rectangle(cnv,newData.drawables[i]));
+				}
+				if(newData.drawables[i].type == "Circle") {
+					drawables.push(new Circle(cnv,newData.drawables[i]));
+				}
+				if(newData.drawables[i].type == "Line") {
+					drawables.push(new Line(cnv,newData.drawables[i]));
+				}
 			}
-			if(newData.drawables[i].type == "Brush") {
-				drawables.push(new Brush(cnv,newData.drawables[i]));
-			}
-			if(newData.drawables[i].type == "Rectangle") {
-				drawables.push(new Rectangle(cnv,newData.drawables[i]));
-			}
-			if(newData.drawables[i].type == "Circle") {
-				drawables.push(new Circle(cnv,newData.drawables[i]));
-			}
-			if(newData.drawables[i].type == "Line") {
-				drawables.push(new Line(cnv,newData.drawables[i]));
+			for(i=0;i<newData.redoDrawables.length;++i) {
+				if(newData.redoDrawables[i].type == "Text") {
+					redoDrawables.push(new Text(cnv,newData.redoDrawables[i]));
+				}
+				if(newData.redoDrawables[i].type == "Brush") {
+					redoDrawables.push(new Brush(cnv,newData.redoDrawables[i]));
+				}
+				if(newData.redoDrawables[i].type == "Rectangle") {
+					redoDrawables.push(new Rectangle(cnv,newData.redoDrawables[i]));
+				}
+				if(newData.redoDrawables[i].type == "Circle") {
+					redoDrawables.push(new Circle(cnv,newData.redoDrawables[i]));
+				}
+				if(newData.redoDrawables[i].type == "Line") {
+					redoDrawables.push(new Line(cnv,newData.redoDrawables[i]));
+				}
 			}
 		}
-		for(i=0;i<newData.redoDrawables.length;++i) {
-			if(newData.redoDrawables[i].type == "Text") {
-				redoDrawables.push(new Text(cnv,newData.redoDrawables[i]));
-			}
-			if(newData.redoDrawables[i].type == "Brush") {
-				redoDrawables.push(new Brush(cnv,newData.redoDrawables[i]));
-			}
-			if(newData.redoDrawables[i].type == "Rectangle") {
-				redoDrawables.push(new Rectangle(cnv,newData.redoDrawables[i]));
-			}
-			if(newData.redoDrawables[i].type == "Circle") {
-				redoDrawables.push(new Circle(cnv,newData.redoDrawables[i]));
-			}
-			if(newData.redoDrawables[i].type == "Line") {
-				redoDrawables.push(new Line(cnv,newData.redoDrawables[i]));
-			}
-		}
-	}
-	render(cnv);
+		render(cnv);
+	});
+
 }
 
 function updateAndSave() {

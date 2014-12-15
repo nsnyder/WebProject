@@ -197,6 +197,19 @@ EOL;
     }
   }
 
+  function getName($user) {
+    $pdo = connect();
+    $stmt = $pdo->prepare('select fullname from accounts where username = :username');
+    $stmt->bindParam(':username', $user);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    try {
+      return $result[0]['fullname'];
+    } catch (Exception $e) {
+      return "";
+    }
+  }
+
 
   //login("Nathan","SnyderPretzels");
   //if(authorized("nsnyder","nsnyder"))

@@ -34,6 +34,7 @@
 	<a href="logout.php" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
+  <div id="name"><?php echo getName($_REQUEST['id']); ?></div>
   <div id="frameHolder">
     <?php if(isset($_GET['alert']) && $_GET['alert'] == "saved") { ?>
       <div class="alert">Your creation has been saved!</div>

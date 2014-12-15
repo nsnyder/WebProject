@@ -215,49 +215,60 @@ function render(cnv) {
 }
 
 function loadSaved(cnv) {
-	var dataField = document.getElementById("canvasData");
-	if(dataField.value != "") {
-		var newData = JSON.parse(decodeURIComponent(dataField.value));
-		for(i=0;i<newData.drawablesArray.length;++i) {
-			for(j=0;j<newData.drawablesArray[i].length;++j) {
-				if(newData.drawablesArray[i][j].type == "Text") {
-					drawablesArray[i].push(new Text(cnv,newData.drawablesArray[i][j]));
+	$.ajax({
+		type: "GET",
+		url: "load.php",
+		data: { id:$.QueryString["id"] }
+	})
+	.done(function() {
+		//alert( "success" );
+	})
+	.fail(function() {
+		//alert( "error" );
+	}).always(function(data) {
+		if(data != "") {
+			var newData = JSON.parse(decodeURIComponent(data));
+			for(i=0;i<newData.drawablesArray.length;++i) {
+				for(j=0;j<newData.drawablesArray[i].length;++j) {
+					if(newData.drawablesArray[i][j].type == "Text") {
+						drawablesArray[i].push(new Text(cnv,newData.drawablesArray[i][j]));
+					}
+					if(newData.drawablesArray[i][j].type == "Brush") {
+						drawablesArray[i].push(new Brush(cnv,newData.drawablesArray[i][j]));
+					}
+					if(newData.drawablesArray[i][j].type == "Rectangle") {
+						drawablesArray[i].push(new Rectangle(cnv,newData.drawablesArray[i][j]));
+					}
+					if(newData.drawablesArray[i][j].type == "Circle") {
+						drawablesArray[i].push(new Circle(cnv,newData.drawablesArray[i][j]));
+					}
+					if(newData.drawablesArray[i][j].type == "Line") {
+						drawablesArray[i].push(new Line(cnv,newData.drawablesArray[i][j]));
+					}
 				}
-				if(newData.drawablesArray[i][j].type == "Brush") {
-					drawablesArray[i].push(new Brush(cnv,newData.drawablesArray[i][j]));
-				}
-				if(newData.drawablesArray[i][j].type == "Rectangle") {
-					drawablesArray[i].push(new Rectangle(cnv,newData.drawablesArray[i][j]));
-				}
-				if(newData.drawablesArray[i][j].type == "Circle") {
-					drawablesArray[i].push(new Circle(cnv,newData.drawablesArray[i][j]));
-				}
-				if(newData.drawablesArray[i][j].type == "Line") {
-					drawablesArray[i].push(new Line(cnv,newData.drawablesArray[i][j]));
+			}
+			for(i=0;i<newData.redoDrawablesArray.length;++i) {
+				for(j=0;j<newData.redoDrawablesArray[i].length;++j) {
+					if(newData.redoDrawablesArray[i][j].type == "Text") {
+						redoDrawablesArray[i].push(new Text(cnv,newData.redoDrawablesArray[i][j]));
+					}
+					if(newData.redoDrawablesArray[i][j].type == "Brush") {
+						redoDrawablesArray[i].push(new Brush(cnv,newData.redoDrawablesArray[i][j]));
+					}
+					if(newData.redoDrawablesArray[i][j].type == "Rectangle") {
+						redoDrawablesArray[i].push(new Rectangle(cnv,newData.redoDrawablesArray[i][j]));
+					}
+					if(newData.redoDrawablesArray[i][j].type == "Circle") {
+						redoDrawablesArray[i].push(new Circle(cnv,newData.redoDrawablesArray[i][j]));
+					}
+					if(newData.redoDrawablesArray[i][j].type == "Line") {
+						redoDrawablesArray[i].push(new Line(cnv,newData.redoDrawablesArray[i][j]));
+					}
 				}
 			}
 		}
-		for(i=0;i<newData.redoDrawablesArray.length;++i) {
-			for(j=0;j<newData.redoDrawablesArray[i].length;++j) {
-				if(newData.redoDrawablesArray[i][j].type == "Text") {
-					redoDrawablesArray[i].push(new Text(cnv,newData.redoDrawablesArray[i][j]));
-				}
-				if(newData.redoDrawablesArray[i][j].type == "Brush") {
-					redoDrawablesArray[i].push(new Brush(cnv,newData.redoDrawablesArray[i][j]));
-				}
-				if(newData.redoDrawablesArray[i][j].type == "Rectangle") {
-					redoDrawablesArray[i].push(new Rectangle(cnv,newData.redoDrawablesArray[i][j]));
-				}
-				if(newData.redoDrawablesArray[i][j].type == "Circle") {
-					redoDrawablesArray[i].push(new Circle(cnv,newData.redoDrawablesArray[i][j]));
-				}
-				if(newData.redoDrawablesArray[i][j].type == "Line") {
-					redoDrawablesArray[i].push(new Line(cnv,newData.redoDrawablesArray[i][j]));
-				}
-			}
-		}
-	}
-	render(cnv);
+		render(cnv);
+	});
 }
 
 function updateAndSave(event) {
