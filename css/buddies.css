@@ -28,4 +28,5 @@ img {
 }
 #searchResults.visible {
 	display: block;
+	background-color: #cee;
 }

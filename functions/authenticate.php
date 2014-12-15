@@ -256,7 +256,9 @@ EOL;
     $result = $stmt->fetchAll();
     foreach($result as $buddy) {
       echo '<div class="buddyTile">';
+      echo '<a href="'. getLevel($buddy['username']) . '.php?id=' . $buddy['username'] . '">';
       echo '<img src="images/circle.png" title="Profile Picture" alt="' . $buddy['fullname'] . '\'s Picture" />';
+      echo '</a>';
       echo '<a href="' . getLevel($buddy['username']) . '.php?id=' . $buddy['username'] . '">'  . $buddy['fullname'] . '</a>';
       echo '</div>';
     }

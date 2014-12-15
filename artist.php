@@ -1,6 +1,10 @@
 <?php
   include 'functions/authenticate.php';
   session_start();
+  if(!isset($_SESSION['user'])) {
+    logout();
+    return;
+  }
   $authorized = authorized($_SESSION['user'],$_REQUEST['id']);
   $user = $_SESSION['user'];
   $level = getLevel($user);
