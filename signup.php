@@ -1,3 +1,6 @@
+<?php
+	include 'functions/authenticate.php';
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">

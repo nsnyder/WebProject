@@ -1,4 +1,5 @@
 <?php
+  include 'functions/authenticate.php';
   session_start();
   $u = $_SESSION['user'];
 	$level = $u['userLevel'];
