@@ -1,18 +1,17 @@
 SET FOREIGN_KEY_CHECKS = 0;
-
 drop table if exists accounts;
 drop table if exists buddies;
-
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE accounts(
-username  varchar(20) unique PRIMARY KEY not null, 
-passphrase varchar(20) not null,
+username  varchar(20) not null, 
+passphrase varchar(40) not null,
 account_type varchar(10) not null,
 fullname varchar(30) not null,
 email varchar(30) not null,
 birthday date not null,
-canvas blob
+canvas blob,
+constraint pk_accounts primary key (username)
 );
 
 CREATE TABLE buddies(
