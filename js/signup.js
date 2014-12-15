@@ -1,8 +1,12 @@
+var validun = false;
+var validpw = false;
+
 var usernamemessage;
 var username;
 var	passmessage;
 var pass;
-var confpass;	
+var confpass;
+
 window.onload = function() {
 username = document.getElementById("username");
 usernamemessage = document.getElementById("usernamemessage");
@@ -44,6 +48,19 @@ function getRandomInt(min, max) {
 
 function checkusername()
 {
+	var position = username.value.indexOf(" ");
+	if(position != -1){
+		usernamemessage.innerHTML = "Username cannot contain spaces!";
+		document.getElementById("submitBtn").disabled = true;
+		document.getElementById("submitBtn").style.backgroundColor="rgba(221, 221, 221, 0.71)";
+		validun = false;
+	}
+	else{
+		usernamemessage.innerHTML = "";
+		document.getElementById("submitBtn").disabled = false;
+		document.getElementById("submitBtn").style.backgroundColor="rgba(153,187,255,.5)";
+		validun = true;
+	}
 }
 
 function checkpass()
@@ -51,13 +68,29 @@ function checkpass()
 	if(pass.value == confpass.value && pass.value != "")
 	{
 		passmessage.innerHTML = "Password Confirmed!";
+		document.getElementById("submitBtn").disabled = false;
+		document.getElementById("submitBtn").style.backgroundColor="rgba(153,187,255,.5)";
+		validpw = true;
 	}
 	else if(pass.value != confpass.value)
 	{
 		passmessage.innerHTML = "Passwords do not match";
+		document.getElementById("submitBtn").disabled = true;
+		document.getElementById("submitBtn").style.backgroundColor="rgba(221, 221, 221, 0.71)";
+		validpw = false;
 	}
 	else if(pass.value == "" && confpass.value == "")
 	{
 		passmessage.innerHTML = "";
+	}
+}
+
+function validateSignup(){
+	if(validun && validpw){
+		return true;
+	}
+	else{
+		alert("User Name or Password is invalid");
+		return false;
 	}
 }
