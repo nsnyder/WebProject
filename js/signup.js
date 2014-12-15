@@ -1,10 +1,14 @@
-var message;
+var usernamemessage;
+var	passmessage;
 var pass;
-var confpass;
+var confpass;	
 window.onload = function() {
+username = document.getElementById("username");
+usernamemessage = document.getElementById("usernamemessage");
 pass = document.getElementById("pwd");
 confpass = document.getElementById("confpwd");
-message = document.getElementById("pwdconfmessage");
+passmessage = document.getElementById("pwdconfmessage");
+username.addEventListener("keyup",checkusername);
 pass.addEventListener("keyup",checkpass);
 confpass.addEventListener("keyup",checkpass);
 
@@ -19,11 +23,7 @@ var c = document.getElementById("myCanvas");
 		while(centerX < ctx.canvas.width) {
 			ctx.beginPath();
 			var colors = ["#fcc","#fef","#9fd","#cfc","#cde"];
-			
 			ctx.fillStyle = colors[getRandomInt(0,colors.length)];
-			
-			
-			
 			ctx.arc(centerX,centerY,radius,0,2*Math.PI);
 			ctx.fill();
 			centerX+=2*radius+2;
@@ -34,20 +34,26 @@ var c = document.getElementById("myCanvas");
 	/*Login event listener*/
 	var loginBtn = document.getElementById();
 	/*end login listener*/
+
 }
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+
 function checkpass()
 {
-	if(pass.value == confpass.value)
+	if(pass.value == confpass.value && pass.value != "")
 	{
-		message.innerHTML = "Password Confirmed!";
+		passmessage.innerHTML = "Password Confirmed!";
 	}
-	else
+	else if(pass.value != confpass.value)
 	{
-		message.innerHTML = "Passwords do not match";
+		passmessage.innerHTML = "Passwords do not match";
+	}
+	else if(pass.value == "" && confpass.value == "")
+	{
+		passmessage.innerHTML = "";
 	}
 }
