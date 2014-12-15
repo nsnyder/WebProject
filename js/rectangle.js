@@ -110,7 +110,6 @@ function Rectangle(cnv, clone){
 		strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
-		render(canvas);
 	}
 	this.mouseHold = function(e) {
 		painting = true;

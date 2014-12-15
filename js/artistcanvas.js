@@ -10,6 +10,21 @@ var tool;
 var layerN;
 var layerCount = 5;
 
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+(function($) {
+	$.QueryString = (function(a) {
+		if (a == "") return {};
+		var b = {};
+		for (var i = 0; i < a.length; ++i)
+		{
+			var p=a[i].split('=');
+			if (p.length != 2) continue;
+			b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+		}
+		return b;
+	})(window.location.search.substr(1).split('&'))
+})(jQuery);
+
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -62,13 +77,14 @@ window.onload=function(){
 	for(var i=0;i<colors.length;++i) {
 		colors[i].addEventListener("click",setColor);
 	}
-
+	var saveBtn = document.getElementById("updateAndSave");
 	var undoBtn = document.getElementById("Undo");
 	var redoBtn = document.getElementById("Redo");
 	var thicknessBtn = document.getElementById("thick");
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
+	canvas.addEventListener("mouseup",updateAndSave);
 
 
 	document.getElementById("l0").addEventListener("change",function() { render(canvas); } );
@@ -244,7 +260,8 @@ function loadSaved(cnv) {
 	render(cnv);
 }
 
-function updateAndSave() {
+function updateAndSave(event) {
+	event.preventDefault();
 	drawables.push(tool);
 	drawablesArray[layerN] = drawables;
 	redoDrawablesArray[layerN] = redoDrawables;
@@ -267,9 +284,38 @@ function updateAndSave() {
 			}
 		}
 	}
-	var dataField = document.getElementById("canvasData");
-	dataField.value = encodeURIComponent(JSON.stringify(newData));
-	document.getElementById("saveCanvas").submit();
+
+	$.ajax({
+		type: "POST",
+		url: "save.php",
+		data: {canvasData: encodeURIComponent(JSON.stringify(newData)), id:$.QueryString["id"]}
+		})
+	.done(function() {
+		//alert( "success" );
+	})
+	.fail(function() {
+		//alert( "error" );
+	}).always(function() {
+		for(i=0;i<drawablesArray.length;++i) {
+			for(j=0;j<drawablesArray[i].length;++j) {
+				if(drawablesArray[i][j]==undefined) {
+					drawablesArray[i].length = j;
+				} else {
+					drawablesArray[i][j].canvas = canvas;
+				}
+			}
+		}
+		for(i=0;i<redoDrawablesArray.length;++i) {
+			for(j=0;j<redoDrawablesArray[i].length;++j) {
+				if(redoDrawables[i]==undefined) {
+					redoDrawablesArray[i].length = j;
+				} else {
+					redoDrawablesArray[i][j].canvas = canvas;
+				}
+			}
+		}
+		render(canvas);
+	});
 }
 
 // StackOverflow, you da best <3

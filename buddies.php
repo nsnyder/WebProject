@@ -1,8 +1,8 @@
 <?php
   include 'functions/authenticate.php';
   session_start();
-  $u = $_SESSION['user'];
-  $level = $u['userLevel'];
+  $user = $_SESSION['user'];
+  $level = getLevel($user);
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,62 +22,30 @@
 <div id="MainContent">
 <section>
 <h1>Your Buddy Requests</h1>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Request 1's Picture" />
-	<a href="#">Buddy Request 1</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Request 2's Picture" />
-	<a href="#">Buddy Request 2</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Request 3's Picture" />
-	<a href="#">Buddy Request 3</a>
-</div>
+<?php
+  foreach(listBuddyRequests($user) as $buddy) {
+    ?>
+    <div class="buddyTile">
+    <img src="images/circle.png" title="Profile Picture" alt="<?php echo $buddy['fullname']; ?>'s Picture" />
+    <a href="<?php echo getLevel($buddy['username']) . '.php?id=' . $buddy['username']; ?>"><?php echo $buddy['fullname']; ?></a>
+    </div>
+    <?php
+  }
+?>
 </section>
 <section>
 <h2>Your Buddies</h2>
 <input type="text" id="buddyFilter" placeholder="Filter Buddies"/>
-<div class="buddyTile">
-	<img src="images/james_mckay.jpg" title="Profile Picture" alt="James McKay's Picture" />
-	<a href="#">James McKay</a>
-</div>
-<div class="buddyTile">
-	<img src="images/professor_boatright.jpg" title="Profile Picture" alt="Professor Boatright's Picture" />
-	<a href="#">Professor Boatright</a>
-</div>
-<div class="buddyTile">
-	<img src="images/heart.png" title="Profile Picture" alt="Buddy 3's Picture" />
-	<a href="#">&lt;&lt; These guys</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 4's Picture" />
-	<a href="#">Buddy 4</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 5's Picture" />
-	<a href="#">Buddy 5</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 6's Picture" />
-	<a href="#">Buddy 6</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 7's Picture" />
-	<a href="#">Buddy 7</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 8's Picture" />
-	<a href="#">Buddy 8</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 9's Picture" />
-	<a href="#">Buddy 9</a>
-</div>
-<div class="buddyTile">
-	<img src="images/circle.png" title="Profile Picture" alt="Buddy 10's Picture" />
-	<a href="#">Buddy 10</a>
-</div>
+<?php
+foreach(listBuddies($user) as $buddy) {
+  ?>
+  <div class="buddyTile">
+    <img src="images/circle.png" title="Profile Picture" alt="<?php echo $buddy['fullname']; ?>'s Picture" />
+    <a href="<?php echo getLevel($buddy['username']) . '.php?id=' . $buddy['username']; ?>"><?php echo $buddy['fullname']; ?></a>
+  </div>
+  <?php
+}
+?>
 </section>
 </div>
 </body>

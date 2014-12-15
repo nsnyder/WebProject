@@ -1,10 +1,14 @@
 <?php
   include 'functions/authenticate.php';
   session_start();
-  $u = $_SESSION['user'];
-  $level = $u['userLevel'];
-  if(!isset($_SESSION['user'])) {
-    header('Location: login.php');
+  $authorized = authorized($_SESSION['user'],$_REQUEST['id']);
+  $user = $_SESSION['user'];
+  $level = getLevel($user);
+  if("apprentice" != getLevel($_REQUEST['id'])) {
+    header('Location: ' . getLevel($_REQUEST['id']) . '.php?id=' . $_REQUEST['id']);
+  }
+  if(!$authorized && ($_REQUEST['id'] == "" || !isset($_REQUEST['id']))) {
+    header('Location: ' . getLevel($user) . '.php?id=' . $user);
   }
 ?>
 <!DOCTYPE html>
@@ -12,6 +16,7 @@
 <head lang="en">
    <meta charset="utf-8">
    <title>Apprentice</title>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/apprentice.css">
    <script type="text/javascript" src="js/canvas.js"></script>
@@ -141,10 +146,6 @@
 			<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 		</ul>
 		<ul id="File" class="action">
-			<form name="saveCanvas" id="saveCanvas" action="saveApprentice.php" method="post" style="display: inline;">
-        <li class="horizontal"><button onclick="updateAndSave()">Save</button></li>
-        <input name="canvasData" id="canvasData" type="hidden" value="<?php if(isset($_SESSION['apprenticeCanvas'])) { echo $_SESSION['apprenticeCanvas']; } ?>">
-      </form>
 			<li class="horizontal"><button onclick="">Download</button></li>
 		</ul>
 		<ul id="FriendAction" class="action">

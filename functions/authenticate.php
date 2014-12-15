@@ -26,6 +26,9 @@
   }
 
   function authorized($accessor, $accessee) {
+    if(!isset($_SESSION['user'])) {
+      logout();
+    }
     if($accessor===$accessee) {
       return true;
     }
@@ -47,18 +50,18 @@
     return $authorized;
   }
 
-  function confirmFriends($sender, $recipient) {  // Not done
+  function confirmFriends($sender, $recipient) {
     $pdo = connect();
-    $stmt = $pdo->prepare('select count(*) from buddies where (username = :u1  AND friend = :u2) OR (username = :u1  AND friend = :u2) AND accepted = true;');
-    $stmt->bindParam(':u1', $accessor);
-    $stmt->bindParam(':u2', $accessee);
+    $stmt = $pdo->prepare('UPDATE buddies SET accepted = true WHERE (username = :u1 AND friend = :u2);');
+    $stmt->bindParam(':u1', $sender);
+    $stmt->bindParam(':u2', $recipient);
     $stmt->execute();
     disconnect($pdo);
   }
 
   function rejectFriends($sender, $recipient) {
     $pdo = connect();
-    $stmt = $pdo->prepare('DELETE from buddies where (username = :u1  AND friend = :u2) OR (username = :u2  AND friend = :u1)');
+    $stmt = $pdo->prepare('DELETE from buddies where (username = :u1  AND friend = :u2) OR (username = :u2 AND friend = :u1)');
     $stmt->bindParam(':u1', $sender);
     $stmt->bindParam(':u2', $recipient);
     $stmt->execute();
@@ -119,6 +122,21 @@ EOL;
     return $result;
   }
 
+  function listBuddyRequests($username) {
+    $queryString = <<<EOL
+    SELECT accounts.username, accounts.fullname, accounts.account_type FROM
+    (SELECT username FROM buddies WHERE friend = :username AND accepted = false) AS T
+    JOIN accounts ON T.username = accounts.username;
+EOL;
+    $pdo = connect();
+    $stmt = $pdo->prepare($queryString);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll();
+    return $result;
+  }
+
   function login($username, $password) {
     $password = sha1($password);
     $pdo = connect();
@@ -147,6 +165,36 @@ EOL;
     $stmt->execute();
     $result = $stmt->fetchAll();
     return $result[0]['account_type'];
+  }
+
+  function logout() {
+    session_destroy();
+    session_unset();
+    session_regenerate_id(true);
+    $_SESSION = array();
+    header('Location: login.php');
+  }
+
+  function saveCanvas($user, $blob) {
+    $pdo = connect();
+    $stmt = $pdo->prepare('UPDATE accounts SET canvas = :blob WHERE (username = :user);');
+    $stmt->bindParam(':user', $user);
+    $stmt->bindParam(':blob', $blob);
+    $stmt->execute();
+    disconnect($pdo);
+  }
+
+  function getCanvas($user) {
+    $pdo = connect();
+    $stmt = $pdo->prepare('select canvas from accounts where username = :username');
+    $stmt->bindParam(':username', $user);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    try {
+      return $result[0]['canvas'];
+    } catch (Exception $e) {
+      return "";
+    }
   }
 
 

@@ -78,7 +78,6 @@ function Brush(cnv, clone){
 		tool.color = clr;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
-		render(canvas);
 	}
 	this.mouseHold = function(e) {
 		pos = getMousePos(canvas,e);

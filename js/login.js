@@ -10,11 +10,11 @@ window.onload = function() {
 		while(centerX < ctx.canvas.width) {
 			ctx.beginPath();
 			var colors = ["#fcc","#fef","#9fd","#cfc","#cde"];
-			
+
 			ctx.fillStyle = colors[getRandomInt(0,colors.length)];
-			
-			
-			
+
+
+
 			ctx.arc(centerX,centerY,radius,0,2*Math.PI);
 			ctx.fill();
 			centerX+=2*radius+2;
@@ -23,7 +23,7 @@ window.onload = function() {
 		centerX=5;
 	}
 	/*Login event listener*/
-	var loginBtn = document.getElementById();
+	//var loginBtn = document.getElementById();
 	/*end login listener*/
 }
 function getRandomInt(min, max) {

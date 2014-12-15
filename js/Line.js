@@ -77,7 +77,6 @@ function Line(cnv, clone){
 		tool.strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
-		render(canvas);
 		// push new line unto drawables?
 		painting = false;
 	}

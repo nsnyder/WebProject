@@ -105,14 +105,6 @@ td.colors{
 	display: inline-block;
 }
 
-.alert {
-	color: #fff;
-	background-color: #fa9;
-	text-align: center;
-	padding: .5em;
-	border-radius: .25em;
-}
-
 /*Action bar list styling*/
 #ActionBar{
 	margin: 0;

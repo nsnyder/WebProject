@@ -1,10 +1,14 @@
 <?php
   include 'functions/authenticate.php';
   session_start();
-  $u = $_SESSION['user'];
-	$level = $u['userLevel'];
-  if(!isset($_SESSION['user'])) {
-    header('Location: login.php');
+  $authorized = authorized($_SESSION['user'],$_REQUEST['id']);
+  $user = $_SESSION['user'];
+  $level = getLevel($user);
+  if("artist" != getLevel($_REQUEST['id'])) {
+    header('Location: ' . getLevel($_REQUEST['id']) . '.php?id=' . $_REQUEST['id']);
+  }
+  if(!$authorized && ($_REQUEST['id'] == "" || !isset($_REQUEST['id']))) {
+    header('Location: ' . getLevel($user) . '.php?id=' . $user);
   }
 ?>
 <!DOCTYPE html>
@@ -27,7 +31,7 @@
 	<?php echo '<a href="/WebProject/'.$level.'.php" title="Home">Home</a>' ?>
 	<input type="text" id="buddySearchBar" placeholder="Find a buddy" />
 	<a href="/WebProject/buddies.php" title="Buddies List">Buddies</a>
-	<a href="login.php" title="Logout">Logout</a>
+	<a href="logout.php" title="Logout">Logout</a>
 </nav>
 <div id="MainContent">
   <div id="frameHolder">
@@ -167,9 +171,9 @@
 		<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 	</ul>
 	<ul id="File" class="action">
-    <form name="saveCanvas" id="saveCanvas" action="saveArtist.php" method="post" style="display: inline;">
-  		<li class="horizontal"><button onclick="updateAndSave()">Save</button></li>
-      <input name="canvasData" id="canvasData" type="hidden" value="<?php if(isset($_SESSION['artistCanvas'])) { echo $_SESSION['artistCanvas']; } ?>">
+    <form name="saveCanvas" id="saveCanvas" style="display: inline;">
+  		<li class="horizontal"><button id="updateAndSave">Save</button></li>
+      <input name="canvasData" id="canvasData" type="hidden" value="<?php echo getCanvas($_REQUEST['id']); ?>">
     </form>
 		<li class="horizontal"><button onclick="">Download</button></li>
 	</ul>

@@ -6,6 +6,21 @@ var drawables = [];
 var redoDrawables = [];
 var tool;
 
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+(function($) {
+	$.QueryString = (function(a) {
+		if (a == "") return {};
+		var b = {};
+		for (var i = 0; i < a.length; ++i)
+		{
+			var p=a[i].split('=');
+			if (p.length != 2) continue;
+			b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+		}
+		return b;
+	})(window.location.search.substr(1).split('&'))
+})(jQuery);
+
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
 	return {
@@ -55,6 +70,7 @@ window.onload=function(){
 	undoBtn.addEventListener("click",undo);
 	redoBtn.addEventListener("click",redo);
 	thicknessBtn.addEventListener("change",function() { try {tool.strokeWidth = this.value; updateColorDisplay(); } catch (e){} } );
+	canvas.addEventListener("mouseup",updateAndSave);
 
 }
 
@@ -214,9 +230,34 @@ function updateAndSave() {
 			newData.redoDrawables[i].canvas = undefined;
 		}
 	}
-	var dataField = document.getElementById("canvasData");
-	dataField.value = encodeURIComponent(JSON.stringify(newData));
-	document.getElementById("saveCanvas").submit();
+
+	$.ajax({
+		type: "POST",
+		url: "save.php",
+		data: {canvasData: encodeURIComponent(JSON.stringify(newData)), id:$.QueryString["id"]}
+	})
+	.done(function() {
+		//alert( "success" );
+	})
+	.fail(function() {
+		//alert( "error" );
+	}).always(function() {
+		for(i=0;i<drawables.length;++i) {
+			if(drawables[i]==undefined) {
+				drawables.length = i;
+			} else {
+				drawables[i].canvas = canvas;
+			}
+		}
+		for(i=0;i<redoDrawables.length;++i) {
+			if(redoDrawables[i]==undefined) {
+				redoDrawables.length = i;
+			} else {
+				redoDrawables[i].canvas = canvas;
+			}
+		}
+		render(canvas);
+	});
 }
 
 // StackOverflow, you da best <3
