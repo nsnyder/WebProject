@@ -91,6 +91,13 @@
   function insertUser($username, $password, $type, $fullname, $email, $birthday) {
 
     $pdo = connect();
+    $password = sha1($password);
+    $stmt = $pdo->prepare('SELECT count(*) FROM accounts WHERE username = :username');
+    $stmt->bindParam(':username', $username);
+    $result = $stmt->fetchAll();
+    if(isset($result[0]) && isset($result[0][0]) && $result[0][0]==1) {
+      return -1;
+    }
 
     $stmt = $pdo->prepare('INSERT INTO accounts (username, passphrase, account_type, fullname, email, birthday) VALUES (:username, :password, :type, :name, :email, :bday);');
     $stmt->bindParam(':username', $username);
@@ -103,11 +110,11 @@
     try {
       $stmt->execute();
     } catch (PDOException $e) {
-      return false;
+      return 0;
     }
 
     disconnect($pdo);
-    return true;
+    return 1;
   }
 
   function listBuddies($username) {
@@ -226,15 +233,32 @@ EOL;
     if(!empty($result)) {
       if($result[0]['accepted']) {
         return FRIENDS;
-      } elseif ($result[0]['username']==$viewer) {
-        return WAITING_ON_THEM;
-      } elseif ($result[0]['friend']==$viewer) {
-        return WAITING_ON_YOU;
+      } elseif (strtolower($result[0]['username'])==strtolower($viewer)) {
+        return WAITING_FOR_THEM;
+      } elseif (strtolower($result[0]['friend'])==strtolower($viewer)) {
+        return WAITING_FOR_YOU;
       } else {
+        print_r($result);
         return NOT_FRIENDS;
       }
     } else {
       return NOT_FRIENDS;
+    }
+  }
+
+  function searchUser($sstring) {
+    $pdo = connect();
+    $sstring = implode("% %",explode(" ",$sstring));
+    $sstring = '%'.$sstring.'%';
+    $stmt = $pdo->prepare('SELECT fullname, username, account_type FROM accounts WHERE username LIKE :search OR fullname LIKE :search');
+    $stmt->bindParam(':search', $sstring);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    foreach($result as $buddy) {
+      echo '<div class="buddyTile">';
+      echo '<img src="images/circle.png" title="Profile Picture" alt="' . $buddy['fullname'] . '\'s Picture" />';
+      echo '<a href="' . getLevel($buddy['username']) . '.php?id=' . $buddy['username'] . '">'  . $buddy['fullname'] . '</a>';
+      echo '</div>';
     }
   }
 
@@ -250,7 +274,7 @@ EOL;
   //if(authorized("mike","stephen")) echo "They are buddies<br>";
 
   //test();
-  //getFriendState("nathan", "stephen123");
+  //echo getFriendState("nathan", "matt");
 
 
 

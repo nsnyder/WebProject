@@ -22,3 +22,10 @@ img {
 	height: 12em;
 	border-radius: 100%;
 }
+
+#searchResults {
+	display: none;
+}
+#searchResults.visible {
+	display: block;
+}

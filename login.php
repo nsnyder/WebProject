@@ -17,13 +17,14 @@
 <h2>Please log in </h2>
 <form action = "signinHandler.php" method = "post">
 	<?php if(isset($_GET['error']) && $_GET['error'] == 'signin') { echo '<div class="alert">Invalid username or password</div>'; }?>
+	<?php if(isset($_GET['error']) && $_GET['error'] == 'accountCreated') { echo '<div class="alert">Account created! Please sign in.</div>'; }?>
 	<input type = "text" name = "username" placeholder="User Name">
 	<input type = "password" name = "pwd" placeholder="Password">
 	<button id="submitBtn" type = "submit" value = "Submit">Log In</button>
 </form>
 </section>
 <section>
-<a href="#" class="buttonImitator">Make a new account</a>
+<a href="signup.php" class="buttonImitator">Make a new account</a>
 </section>
 </body>
 </html>

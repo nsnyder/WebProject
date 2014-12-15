@@ -16,7 +16,10 @@
 	<img src="images/GrouPaint%20working%202.png" title="GrouPaint" alt="GrouPaint" />
 	<h1>Sign up</h1>
 	<p>Please fill out every section to make a GrouPaint account </p>
-	<form id = "signupform" onsubmit="return validateSignup()" method="post">
+	<?php if(isset($_REQUEST['error']) && $_REQUEST['error']=="duplicateUsername") { ?>
+	<div class="alert">Username already in use</div>
+	<?php } ?>
+	<form id = "signupform" onsubmit="return validateSignup()" action="signupHandler.php" method="post">
 		<table>
 		<tr>
 			<td> <label for = "username">User Name:</label> </td>
@@ -46,7 +49,7 @@
 		</tr>
 		<tr>
 			<td> <label for = "usertype">User Type: </label> </td>
-			<td> <select required>
+			<td> <select name = "usertype" required>
 					<option selected disabled>Please Choose a User Type</option>
 					<option value = "apprentice">Apprentice</option>
 					<option value = "artist">Artist</option>
@@ -59,4 +62,3 @@
 	</section>
 </body>
 </html>
-		

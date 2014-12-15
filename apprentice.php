@@ -19,9 +19,9 @@
 <html>
 <head lang="en">
    <meta charset="utf-8">
-   <title>Apprentice</title>
+   <title>Apprentice - <?php echo getName($_REQUEST['id']); ?></title>
    <link rel="stylesheet" type="text/css" href="css/global.css">
-   <link rel="stylesheet" type="text/css" href="css/apprentice.css">
+   <link rel="stylesheet" type="text/css" href="css/profile.css">
    <?php if($authorized) { ?>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
    <script type="text/javascript" src="js/canvas.js"></script>
@@ -35,7 +35,7 @@
 <body>
 <nav id="MainNav">
 	<?php echo '<a href="/WebProject/'.$level.'.php" title="Home">Home</a>' ?>
-	<input type="text" id="buddySearchBar" placeholder="Find a buddy"/>
+	<input type="text" id="buddySearchBar" placeholder="Find a buddy"  style="visibility: hidden;"/>
 	<a href="/WebProject/buddies.php" title="Buddies List">Buddies</a>
 	<a href="logout.php" title="Logout">Logout</a>
 </nav>
@@ -151,16 +151,15 @@
 	<div id="ActionBar">
 		<ul id="Share" class="action">
 			<li class="horizontal">Share:</li>
-			<li class="horizontal"><img onclick="" src="images/social/facebook_16.png" alt="facebook"/></li>
-			<li class="horizontal"><img onclick="" src="images/social/twitter_16.png" alt="twitter"/></li>
-			<li class="horizontal"><img onclick="" src="images/social/email_16.png" alt="email"/></li>
+      <li class="horizontal"><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//localhost/WebProject/<?php echo getLevel($_REQUEST['id']); ?>.php%3Fid%3D<?php echo $_REQUEST['id']; ?>"><img src="images/social/facebook_16.png" alt="facebook"/></a></li>
+      <li class="horizontal"><a href="https://twitter.com/share?url=http%3A//localhost/WebProject/<?php echo getLevel($_REQUEST['id']); ?>.php%3Fid%3D<?php echo $_REQUEST['id']; ?>"><img src="images/social/twitter_16.png" alt="twitter"/></a></li>
 		</ul>
 		<ul id="UndoRedo" class="action">
 			<li class="horizontal"><button id="Undo" onclick="">Undo</button></li>
 			<li class="horizontal"><button id="Redo" onclick="">Redo</button></li>
 		</ul>
 		<ul id="File" class="action">
-			<li class="horizontal"><button onclick="">Download</button></li>
+			<li class="horizontal"><button onclick="window.print()">Print</button></li>
 		</ul>
 
     <?php if($_REQUEST['id']!=$user) { ?>
@@ -171,25 +170,26 @@
         $class = "";
         switch (getFriendState($user, $_REQUEST['id'])) {
           case NOT_FRIENDS:
-          $buttonText = "Add Friend";
-          $class = "normal";
-          $url = "friendAction.php?action=add&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
-          break;
+            $buttonText = "Add Buddy";
+            $class = "normal";
+            $url = "friendAction.php?action=add&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+            break;
           case FRIENDS:
-          $buttonText = "Remove Friend";
-          $class = "remove";
-          $url = "addFriend.php?action=remove&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
-          break;
+            $buttonText = "Remove Buddy";
+            $class = "remove";
+            $url = "friendAction.php?action=remove&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+            break;
           case WAITING_FOR_YOU:
-          $buttonText = "Confirm Friend Request";
-          $class = "confirm";
-          $url = "addFriend.php?action=confirm&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
-          break;
+            echo '<li class="reject horizontal"><a href="' . "friendAction.php?action=reject&viewer=" . $user . "&viewee=" . $_REQUEST['id'] . '">' . "Reject Buddy Request" . '</a></li>';
+            $buttonText = "Confirm Buddy Request";
+            $class = "confirm";
+            $url = "friendAction.php?action=confirm&viewer=" . $user . "&viewee=" . $_REQUEST['id'];
+            break;
           case WAITING_FOR_THEM:
-          $buttonText = "Request Sent";
-          $class = "disabled";
-          $url = "#";
-          break;
+            $buttonText = "Request Sent";
+            $class = "disabled";
+            $url = "#";
+            break;
         }
         echo '<li class="' . $class . ' horizontal"><a href="' . $url . '">' . $buttonText . '</a></li>';
 
