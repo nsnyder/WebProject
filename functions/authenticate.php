@@ -47,7 +47,7 @@
     return $authorized;
   }
 
-  function confirmFriends($sender, $recipient) {
+  function confirmFriends($sender, $recipient) {  // Not done
     $pdo = connect();
     $stmt = $pdo->prepare('select count(*) from buddies where (username = :u1  AND friend = :u2) OR (username = :u1  AND friend = :u2) AND accepted = true;');
     $stmt->bindParam(':u1', $accessor);
@@ -116,7 +116,7 @@ EOL;
     $stmt->execute();
 
     $result = $stmt->fetchAll();
-    print_r($result);
+    return $result;
   }
 
   if(authorized("nsnyder","nsnyder"))
