@@ -129,19 +129,28 @@ EOL;
     $stmt->bindParam(':password', $password);
     $stmt->execute();
     $result = $stmt->fetchAll();
-    print_r($result);
     if($result[0][0]==1) {
-      echo "valid login";
+      $valid = true;
     } else {
-      echo "invalid login";
+      $valid = false;
     }
 
 
     disconnect($pdo);
+    return $valid;
+  }
+
+  function getLevel($username) {
+    $pdo = connect();
+    $stmt = $pdo->prepare('select account_type from accounts where username = :username');
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    return $result[0]['account_type'];
   }
 
 
-  login("Nathan","SnyderPretzels");
+  //login("Nathan","SnyderPretzels");
   //if(authorized("nsnyder","nsnyder"))
   //  echo "Authorized<br>";
 
