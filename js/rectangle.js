@@ -107,7 +107,7 @@ function Rectangle(cnv, clone){
 		tool = new Rectangle(canvas);
 		tool.color = clr;
 		tool.fillColor = fclr;
-		strokeWidth = wdth;
+		tool.strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}

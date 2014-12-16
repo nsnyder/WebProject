@@ -137,7 +137,7 @@ function Circle(cnv, clone){
 		tool = new Circle(canvas);
 		tool.color = clr;
 		tool.fillColor = fclr;
-		strokeWidth = wdth;
+		tool.strokeWidth = wdth;
 		canvas.addEventListener("mousedown", tool.mouseDown);
 		canvas.addEventListener("mouseup", tool.mouseRelease);
 	}

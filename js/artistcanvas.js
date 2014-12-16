@@ -204,7 +204,7 @@ function setColor() {
 function render(cnv) {
 	ctx = cnv.getContext("2d");
 	ctx.clearRect(0,0,cnv.width,cnv.height);
-
+	
 	drawables = drawablesArray[layerN];
 	for(var i=0;i<drawablesArray.length;++i) {
 		if(document.getElementById("l"+i).checked) {
@@ -274,12 +274,6 @@ function loadSaved(cnv) {
 }
 
 function updateAndSave(event) {
-	try {
-		event.preventDefault();
-	} catch(e) {
-
-	}
-	drawables.push(tool);
 	drawablesArray[layerN] = drawables;
 	redoDrawablesArray[layerN] = redoDrawables;
 	var newData = { drawablesArray: drawablesArray, redoDrawablesArray: redoDrawablesArray };

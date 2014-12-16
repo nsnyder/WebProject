@@ -34,7 +34,9 @@
     foreach(listBuddyRequests($user) as $buddy) {
       ?>
       <div class="buddyTile">
-      <img src="images/circle.png" title="Profile Picture" alt="<?php echo $buddy['fullname']; ?>'s Picture" />
+        <a href="<?php echo getLevel($buddy['username']) . '.php?id=' . $buddy['username']; ?>">
+          <img src="images/circle.png" title="Profile Picture" alt="<?php echo $buddy['fullname']; ?>'s Picture" />
+        </a>
       <a href="<?php echo getLevel($buddy['username']) . '.php?id=' . $buddy['username']; ?>"><?php echo $buddy['fullname']; ?></a>
       </div>
       <?php
