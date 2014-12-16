@@ -228,9 +228,7 @@ function loadSaved(cnv) {
 }
 
 function updateAndSave() {
-	var width = tool.strokeWidth;
 	drawables.push(tool);
-	tool.strokeWidth = width;
 	var newData = { drawables: drawables, redoDrawables: redoDrawables };
 	for(i=0;i<newData.drawables.length;++i) {
 		if(newData.drawables[i]==undefined) {
