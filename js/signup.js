@@ -37,7 +37,7 @@ var c = document.getElementById("myCanvas");
 		centerX=5;
 	}
 	/*Login event listener*/
-	var loginBtn = document.getElementById();
+	//var loginBtn = document.getElementById();
 	/*end login listener*/
 
 }

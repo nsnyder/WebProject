@@ -1,9 +1,17 @@
 <?php
   function connect() {
+    /*
     $servername = "sql5.freemysqlhosting.net";
     $username = "sql561392";
     $password = "wA7!uC6%";
     $dbname = $username;
+    $port = "3306";
+    */
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "webproject";
     $port = "3306";
 
     if(!defined("FRIENDS")) define("FRIENDS", 0);
@@ -103,6 +111,7 @@
     $stmt->bindParam(':username', $username);
     $stmt->bindParam(':password', $password);
     $stmt->bindParam(':type', $type);
+    echo '<br>'.$type;
     $stmt->bindParam(':name', $fullname);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':bday', $birthday);

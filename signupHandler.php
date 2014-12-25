@@ -7,11 +7,14 @@
   $fullname = $_REQUEST['fullname'];
   $email = $_REQUEST['email'];
   $birthday = $_REQUEST['birthday'];
-  if(insertUser($username, $password, $type, $fullname, $email, $birthday) == "-1") {
+  print_r($_REQUEST);
+  if(insertUser($username, $password, $type, $fullname, $email, $birthday) == "0") {
     echo "tosignup";
+    //return;
     header('Location: signup.php?error=duplicateUsername');
   } else {
     echo "tologin";
+    //return;
     header('Location: login.php?error=accountCreated');
   }
 ?>
